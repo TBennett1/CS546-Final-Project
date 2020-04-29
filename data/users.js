@@ -18,7 +18,7 @@ async function addUser(firstName,lastName,email,password){
     const allUsers = await userCollection.find({}).toArray();
     let index;
     for(index = 0; index < allUsers[index].email.length; index++){
-    if(email==allUsers[index].email) throw "Email id already in use!";
+    if(email.toLowerCase()==allUsers[index].email) throw "Email id already in use!";
     }
     
     password = await Bcrypt.hash(password, 16);
