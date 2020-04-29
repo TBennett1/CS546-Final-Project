@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../../public/style.css">
+    <link rel="icon" href="4.jpg" type="image/png" sizes="16x16">
+    <title>{{{title}}}</title>
+</head>
+
+<body>
+    <h1>Game ON</h1>
+    <nav>
+        <ul>
+            {{#if loggedin}}
+            <li><a href="/private">Home</a></li>
+            {{else}}
+            <li><a href="/">Home</a></li>
+            {{/if}}
+            <li><a href="/supermariogalaxy2">About Us</a></li>
+            <li><a href="index.html">Games</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a class="active" href="/login">Sign In</a></li>
+        </ul>
+    </nav>
+    <main>
+        {{#if loggedin}}
+        You are logged in as {{currentUser}}
+        <a href="http://localhost:3000/logout"> logout </a>
+        {{/if}}
+        {{{body}}}
+    </main>
+</body>
+
+</html>
