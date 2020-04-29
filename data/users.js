@@ -27,7 +27,7 @@ async function addUser(firstName,lastName,email,password){
     let newUser={
         firstName:firstName,
         lastName:lastName,
-        email:email,
+        email:email.toLowerCase(),
         password:password,
         usersReviews:[],
         votedReviews:[],
@@ -90,7 +90,7 @@ async function addUserSeed(firstName,lastName,email,password){
     let newUser={
         firstName:firstName,
         lastName:lastName,
-        email:email,
+        email:email.toLowerCase(),
         password:password,
         usersReviews:[],
         votedReviews:[],
