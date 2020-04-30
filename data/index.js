@@ -1,3 +1,4 @@
 const gameData = require('./games');  
-
-    module.exports = {games: gameData };
+const userData=require('./users');
+const reviewData=require('./reviews');
+    module.exports = {games: gameData , users: userData, reviews:reviewData};
