@@ -3,7 +3,7 @@ const users = mongoCollections.users;
 const { ObjectId } = require('mongodb');
 const uuid = require('uuid');
 const Bcrypt = require("bcryptjs");
-// The following function adds user through get request:
+// The following function adds user through GET request:
 async function addUser(firstName,lastName,email,password){
     const userCollection = await users();
     if (!firstName) throw 'You must provide a first name';
@@ -40,7 +40,7 @@ async function addUser(firstName,lastName,email,password){
     const newId = insertInfo.insertedId;
     newIdString=newId.toString();
    // console.log(newIdString);
-    const user = await this.getUser(newIdString);
+    const user = await this.getUser(email);
     return user;
 }
 
@@ -52,13 +52,13 @@ async function getAllUsers(){
 
     return allUsers;
 }
-async function getUser(id){
-    if (!id) throw 'You must provide an id to search for';
+async function getUser(email){
+    if (!email) throw 'You must provide an id to search for';
 
     const userCollection = await users();
   // 
-    const objId = ObjectId.createFromHexString(id);
-    const usero = await userCollection.findOne({_id: objId});
+   // const objId = ObjectId.createFromHexString(id);
+    const usero = await userCollection.findOne({email:email});
     if (usero === null) throw 'No user with that id';
 
     return usero;
@@ -103,9 +103,43 @@ async function addUserSeed(firstName,lastName,email,password){
     const newId = insertInfo.insertedId;
     newIdString=newId.toString();
    // console.log(newIdString);
-    const user = await this.getUser(newIdString);
+    const user = await this.getUser(email);
     return user;
 }
 
+//Allow the users to edit their profile: Modification recommended by Prof. Hill
+//The following function allows a user to modify his/her profile:
+async function updateUser(email,firstName,lastName,password){
+   
+    if (!email) throw 'Cannot update band without an email id';
+    if(typeof(firstName)!='string') throw 'First Name should be of type: string';
+    if (typeof(lastName)!='string') throw 'Last Name should be of type: string';
+    if (typeof(password)!='string') throw 'Password should be of type: String';
+    password = await Bcrypt.hash(password, 16);
+    const userCollection = await users();
+    const updateUser = {
+      firstName:firstName,
+      lastName:lastName,
+      password:password
+    };
+  //  const { ObjectId } = require('mongodb');
+  // const objId = ObjectId.createFromHexString(bandId);
+    const updatedInfo = await userCollection.updateOne({email:email}, {$set: updateUser});
+    if (updatedInfo.modifiedCount === 0) {
+      throw 'could not update user successfully';
+    }
 
-module.exports={addUser,getAllUsers,getUser,addUserSeed}
+    return await this.getUser(email);
+  }
+
+  //The following function will add reviews to user
+async function addReviewsToUser(email,reviewId){
+  const userCollection = await users();
+  email=email.toLowerCase();
+  const updateInfo = await userCollection.updateOne({email:email}, {$addToSet: {usersReviews: reviewId}});
+  if (!updateInfo.matchedCount && !updateInfo.modifiedCount) throw 'Update failed';
+
+  return await this.getUser(email);
+}
+
+module.exports={addUser,getAllUsers,getUser,addUserSeed,updateUser,addReviewsToUser}
