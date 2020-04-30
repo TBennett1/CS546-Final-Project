@@ -19,7 +19,7 @@ async function addGame(nameOfGame,gameIcon){
     const newId = insertInfo.insertedId;
     newIdString=newId.toString();
    // console.log(newIdString);
-    const game = await this.getGame(newIdString);
+    const game = await this.getGame(nameOfGame);
     return game;
 }
 
@@ -31,13 +31,13 @@ async function getAllGames(){
 
     return allGames;
 }
-async function getGame(id){
-    if (!id) throw 'You must provide an id to search for';
+async function getGame(name){
+    if (!name) throw 'You must provide an id to search for';
 
     const gameCollection = await games();
-  // 
-    const objId = ObjectId.createFromHexString(id);
-    const gameo = await gameCollection.findOne({_id: objId});
+    
+    // const objId = ObjectId.createFromHexString(id);
+    const gameo = await gameCollection.findOne({'nameOfGame': name});
     if (gameo === null) throw 'No game with that id';
 
     return gameo;

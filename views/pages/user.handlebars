@@ -1,0 +1,17 @@
+<section>
+    {{#if flag}}
+        <h2>{{error}}</h2>
+    {{#else}}
+        <img src="../../images/pic.png" class="profile"/>
+        <h3>{{firstName}} {{lastName}}</h3>
+        <h3>{{email}}</h3>
+        <h3><a href="/edit">Edit Profile</a></h3>
+        <h3>Previous Posts</h3>
+        {{#each posts}}
+            <article>
+                <h4><a href="/games/{{game}}">{{game}}</a></h4>
+                <p>{{body}}</p>
+            </article>
+        {{/each}}
+    {{/if}}
+</section>

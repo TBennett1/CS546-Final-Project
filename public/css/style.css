@@ -26,10 +26,6 @@ li a {
 	padding: 14px 16px;
 	text-decoration: none;
 }
-
-.active {
-	background-color: teal;
-}
   
 li a:hover {
 	background-color: teal;
@@ -41,11 +37,16 @@ article{
 	padding: 1%;
 }
 
-h1,h3{
+h2,h3{
 	text-align: center;
 	color: rgb(9, 173, 173);
 }
 
+h1{
+	text-align: center;
+	color: rgb(9, 173, 173);
+	font-size: 50px;
+}
 
 div > a{
 	color: black;
@@ -64,6 +65,10 @@ div > a:visited{
 		padding-left: 2%;
 		padding-bottom: 2%;
     }
+}
+
+.active {
+	background-color: teal;
 }
 
 .game{
@@ -109,6 +114,7 @@ div > a:visited{
 	transform: translate(-50%, -50%);
 	text-align: center;
 }
+
 .image {
     display: flex;
     margin-left: auto;
@@ -116,4 +122,21 @@ div > a:visited{
     width: 100%;
 	height: 500px;
 	padding-right: 2%;
+}
+
+.reviewImage{
+	display: flex;
+	margin-left: auto;
+	margin-right: auto;
+	padding-top: 2%;
+	width: 400px;
+}
+
+
+.profile{
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    width: auto;
+    padding: 5%;
 }

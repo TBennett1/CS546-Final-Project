@@ -1,0 +1,24 @@
+<nav>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="index.html">About Us</a></li>
+        <li><a class="active" href="/games">Games</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html">Sign In</a></li>
+    </ul>
+</nav>
+<section>
+    <img src="../{{game.gameIcon}}" class="reviewImage"/>
+    <h1>{{game.nameOfGame}}</h1>
+    <h3>Reviews</h3>
+    {{#each reviews}}
+        <h4>{{rating}}</h4>
+        <h4>{{body}}</h4>
+        <p>{{upvotes}}</p>
+        <p>{{downvotes}}</p>
+        {{#each comments}}
+            <p>{{this.[0].firstName}} {{this.[0].lastName}}</p>
+            {{!-- <p>{{this.[1].comment</p> --}}
+        {{/each}}
+    {{/each}}
+</section>
