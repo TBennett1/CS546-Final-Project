@@ -5,7 +5,10 @@ const uuid = require('uuid');
 
 async function addGame(nameOfGame,gameIcon){
     const gameCollection = await games();
-
+    if (!nameOfGame) throw 'You must provide a name for your game';
+    if(typeof(nameOfGame)!='string') throw 'Name of game should be of type: string';
+    if (!gameIcon) throw 'You must provide a path for icon of your game';
+    if(typeof(gameIcon)!='string') throw 'Path of icon should be of type: string';
 
     let newGame={
         nameOfGame: nameOfGame,
@@ -43,4 +46,14 @@ async function getGame(id){
     return gameo;
 }
 
-module.exports={addGame,getAllGames,getGame}
+//The following function will add reviews to game
+async function addReviewsToGame(gameId,reviewId){
+    const gameCollection = await games();
+    
+    const objId = ObjectId.createFromHexString(gameId);
+    const updateInfo = await gameCollection.updateOne({_id: objId}, {$addToSet: {ratings: reviewId, reviews:reviewId}});
+    if (!updateInfo.matchedCount && !updateInfo.modifiedCount) throw 'Update failed';
+  
+    return await this.getGame(gameId);
+  }
+module.exports={addGame,getAllGames,getGame,addReviewsToGame}

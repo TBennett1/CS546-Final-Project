@@ -6,6 +6,7 @@ const games = require('../data/games');
 //const Promise = bluebird.Promise;
 const users=require('../data/users');
 //const fs = bluebird.promisifyAll(require("fs"));
+const reviews=require('../data/reviews');
 
 const connection = require('../config/mongoConnection');
 async function main(){
@@ -15,6 +16,7 @@ async function main(){
 
 
 try{
+	
 	//Created 20 games:
 	   createdGame1 = await games.addGame("Super Mario World","../images/Super Mario World.jpg");
 	   console.log("This is the first game: Game No 1:");
@@ -44,7 +46,14 @@ try{
 	  user2=await users.addUserSeed("Pascal","Clifford","pclifford2@angelfire.com","$2a$16$Bhop3tLEwnjUztZX2U9iCO6T1ODBEJyRAPrGrLVPcb3oGUkskvX6G");
 	  user3=await users.addUserSeed("Kristin","Duffus","kduffus4@craigslist.org","$2a$16$32cJ3Mo4eVDjS5CNpyU4U.fX3L0ymNBEDojal5kTAEttqVPQyyRc6");
 	  user4=await users.addUserSeed("Theo","Longo","tlongo5@fema.gov","$2a$16$shV1LpLoZvDcEqVKmx/sQuxwQwshINLsPMTqEvFp996tOk9uduSVy");
-	  user5=await users.addUserSeed("Vin","Copson","Vcopson4@wufoo.com","$2a$16$fXqeuI6NMdFhX.9ux6aPEOfA2JkSOb28Ix6or8EhNW7tcMtiykDGi");
+	  user5=await users.addUserSeed("Vin","Copson","vcopson4@wufoo.com","$2a$16$fXqeuI6NMdFhX.9ux6aPEOfA2JkSOb28Ix6or8EhNW7tcMtiykDGi");
+	
+	//Testing update user function:
+	//x=await users.updateUser("tlongo5@fema.gov","lol","mkivbn","nnjukikl");
+	//console.log(x);
+	
+	review1=await reviews.addReview("5eaae6a1db97bc28e0603348","tlOngo5@fema.gov","Fun to play",9);
+	console.log(review1);
 	}
 	catch(e){
 		console.log(e);
