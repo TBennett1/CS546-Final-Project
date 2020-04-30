@@ -52,7 +52,7 @@ try{
 	//x=await users.updateUser("tlongo5@fema.gov","lol","mkivbn","nnjukikl");
 	//console.log(x);
 	
-	review1=await reviews.addReview("5eaae6a1db97bc28e0603348","tlOngo5@fema.gov","Fun to play",9);
+	review1=await reviews.addReview(`${createdGame5._id}`,"tlOngo5@fema.gov","Fun to play",9);
 	console.log(review1);
 	}
 	catch(e){
