@@ -12,7 +12,7 @@ module.exports = [
     {
       _id: 1,
       username: "lemon",
-      hashedPassword: "<The Hash Here>",
+      hashedPassword: "$2a$16$SsR2TGPD24nfBpyRlBzINeGU61AH0Yo/CbgfOlU1ajpjnPuiQaiDm",
       firstName: "Elizabeth",
       lastName: "Lemon",
       Bio:"Elizabeth Miervaldis 'Liz' Lemon is the main character of the American television series 30 Rock. She created and writes for the fictional comedy-sketch show The Girlie Show or TGS with Tracy Jordan.",

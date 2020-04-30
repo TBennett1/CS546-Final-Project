@@ -1,17 +1,24 @@
 {
-  "name": "cs-546-final-project-login",
+  "name": "videogame",
   "version": "1.0.0",
-  "description": "CS 546 Final Project Login",
+  "description": "Video game project",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "seed": "node ./tasks/seed.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
-  "author": "Matthew Dimaculangan - 10423883",
+  "author": "Tehreem, Matthew, Tarquin",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^4.0.1",
+    "bluebird": "^3.7.2",
     "express": "^4.17.1",
-    "express-handlebars": "^4.0.3",
-    "express-session": "^1.17.1"
+    "express-handlebars": "^3.1.0",
+    "express-session": "^1.17.1",
+    "handlebars": "^4.7.6",
+    "mongodb": "^3.5.7",
+    "mongoose": "^5.9.7",
+    "uuid": "^3.4.0"
   }
 }
