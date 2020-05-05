@@ -56,4 +56,7 @@ async function addReviewsToGame(gameId,reviewId){
   
     return await this.getGame(gameId);
   }
+
+
+
 module.exports={addGame,getAllGames,getGame,addReviewsToGame}
