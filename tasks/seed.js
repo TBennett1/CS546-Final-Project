@@ -7,7 +7,7 @@ const games = require('../data/games');
 const users=require('../data/users');
 //const fs = bluebird.promisifyAll(require("fs"));
 const reviews=require('../data/reviews');
-
+const comments=require('../data/comments');
 const connection = require('../config/mongoConnection');
 async function main(){
 	//Creation of Game 1
@@ -52,9 +52,13 @@ try{
 	//x=await users.updateUser("tlongo5@fema.gov","lol","mkivbn","nnjukikl");
 	//console.log(x);
 	
-	review1=await reviews.addReview("5eaae6a1db97bc28e0603348","tlOngo5@fema.gov","Fun to play",9);
+	review1=await reviews.addReview(`${createdGame5._id}`,"tlOngo5@fema.gov","Fun to play",9);
 	console.log(review1);
-	}
+	
+	
+	comment1=await comments.addComment(`${createdGame5._id}`,`${review1._id}`,"tlongo5@fema.gov","Good suggestion!");
+	comment2=await comments.addComment(`${createdGame5._id}`,`${review1._id}`,"janedoe@gmail.com","I am a dummy comment!");	
+}
 	catch(e){
 		console.log(e);
 	}
