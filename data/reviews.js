@@ -88,6 +88,25 @@ async function getAllReviewsOfGame(gameId) {
     return allReviewsOfGame;
   }
 
+  //Function to add comments to a review
+ async function addCommentsToReview(reviewId,commentId){
+  if (!reviewId) throw 'You must provide an id to search for';
+  if(!commentId) throw 'You must provide a comment id';
+  const reviewCollection = await reviews();
+ const objId = ObjectId.createFromHexString(reviewId);
+  const reviewer = await reviewCollection.findOne({_id: objId});
+  if (reviewer === null) throw 'No review with that id';
+  const updateInfo = await reviewCollection.updateOne({_id: objId}, {$addToSet: {comments: commentId}});
+  if (!updateInfo.matchedCount && !updateInfo.modifiedCount) throw 'Update failed';
 
-module.exports={addReview,getReview,getAllReviewsOfGame}
+  return reviewer;
+ }
+
+ //Function to delete comment from review if the comment is deleted
+async function deleteCommentFromReviews(reviewId,commentId){
+
+}
+
+//Function to remove a review
+module.exports={addReview,getReview,getAllReviewsOfGame,addCommentsToReview,deleteCommentFromReviews}
 //,updateReview,removeReviewDueToUser,removeReview
