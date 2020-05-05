@@ -8,7 +8,10 @@ router.get('/', async (req, res) => {
   //res.render('pages/smg2');
   if (req.session.user) {
     req.session.user.log = true;
-    res.render('pages/smg2', { loggedin: true, currentUser: req.session.user.username });
+    res.render('pages/smg2', { loggedin: true, currentUser: req.session.user});
+  }
+  else {
+    res.render('pages/smg2');
   }
 });
 
