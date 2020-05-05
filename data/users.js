@@ -142,4 +142,23 @@ async function addReviewsToUser(email,reviewId){
   return await this.getUser(email);
 }
 
-module.exports={addUser,getAllUsers,getUser,addUserSeed,updateUser,addReviewsToUser}
+//
+async function addCommentsToUser(email,commentId){
+  if (!email) throw 'You must provide an email id to comment';
+  if(!commentId) throw 'You must provide a comment id';
+  const userCollection = await users();
+ const objId = ObjectId.createFromHexString(commentId);
+  const userComment = await userCollection.findOne({email: email});
+  if (userComment === null) throw 'No user with that email';
+  const updateInfo = await userCollection.updateOne({email: email}, {$addToSet: {reviewComments: commentId}});
+  if (!updateInfo.matchedCount && !updateInfo.modifiedCount) throw 'Update failed';
+
+  return userComment;
+}
+//
+async function deleteCommentFromUser(email,commentId){
+
+}
+
+
+module.exports={addUser,getAllUsers,getUser,addUserSeed,updateUser,addReviewsToUser,addCommentsToUser,deleteCommentFromUser}
