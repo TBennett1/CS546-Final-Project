@@ -13,7 +13,8 @@ router.get('/', async (req, res) => {
 router.post("/", async (req, res) => {
   const data = req.body;
   if (!data || !data.username || !data.password) {
-    res.status(400);
+    res.status(401).render('pages/login', { error: true, etext: "Invalid Username/Password" });
+    console.log("You messed up bro");
     return;
   }
 
@@ -32,7 +33,8 @@ router.post("/", async (req, res) => {
           success = await bcrypt.compare(data.password, user.password);//Change to pull from database
         }
         catch (e) {
-          console.log(e);
+          res.status(401).render('pages/login', { error: true, etext: "Invalid Username/Password" });
+          console.log("You messed up bro");
         }
         console.log("Checkpoint 4");
         if (success === true) {
@@ -44,17 +46,17 @@ router.post("/", async (req, res) => {
           return res.redirect('/index');
         }
         else {
-          res.status(401).render('pages/login', { error: true, etext: "Invalid Password" });
+          res.status(401).render('pages/login', { error: true, etext: "Invalid Username/Password" });
           console.log("You messed up bro");
         }
       }
       else {
-        res.status(401).render('pages/login', { error: true, etext: "Invalid username" });
+        res.status(401).render('pages/login', { error: true, etext: "Invalid Username/Password" });
         console.log("You messed up bro");
       }
     }
     catch{
-      res.status(401).render('pages/login', { error: true, etext: "No user with that id" });
+      res.status(401).render('pages/login', { error: true, etext: "Invalid Username/Password" });
       console.log("You messed up bro");
     }
   }
