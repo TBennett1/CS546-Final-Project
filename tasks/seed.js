@@ -58,6 +58,12 @@ try{
 	
 	comment1=await comments.addComment(`${createdGame5._id}`,`${review1._id}`,"tlongo5@fema.gov","Good suggestion!");
 	comment2=await comments.addComment(`${createdGame5._id}`,`${review1._id}`,"janedoe@gmail.com","I am a dummy comment!");	
+	
+	downvote1=await reviews.downVote(`${review1._id}`,"tlongo5@fema.gov");
+	upvote1=await reviews.upVote(`${review1._id}`,"janedoe@gmail.com");
+	
+	console.log(downvote1);
+	console.log(upvote1);
 }
 	catch(e){
 		console.log(e);
