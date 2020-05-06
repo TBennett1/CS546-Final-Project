@@ -107,6 +107,63 @@ async function deleteCommentFromReviews(reviewId,commentId){
 
 }
 
-//Function to remove a review
-module.exports={addReview,getReview,getAllReviewsOfGame,addCommentsToReview,deleteCommentFromReviews}
+//Function to add upvotes, it returns total number of upvotes
+
+async function upVote(reviewId,email){
+//Check if the user has previously upvoted or downvoted
+if (!reviewId) throw 'You must provide a review id!';
+if(!email) throw 'You must provide an email id';
+const reviewCollection = await reviews();
+const objId = ObjectId.createFromHexString(reviewId);
+const reviewer = await reviewCollection.findOne({_id: objId});
+for(e in reviewer.upvotes){
+if(email ==reviewer.upvotes[e]){
+  throw "You can only upvote a review once!";
+}
+}
+let x;
+for(x in reviewer.downvotes){
+  if(email==reviewer.downvotes[x]){
+    //So the user had previously downvoted a review and now wants to upvote it
+   const updateInfo = await reviewCollection.updateOne({_id: reviewer._id}, {$pull: {downvotes: email}});
+   if (!updateInfo.matchedCount && !updateInfo.modifiedCount) throw 'Removal failed';
+  }
+   }
+  const newUp=await reviewCollection.updateOne({_id: reviewer._id},{ $addToSet: {upvotes: email }});
+  const reviewUp = await reviewCollection.findOne({_id: objId});
+   let totalUpvotes=reviewUp.upvotes.length;
+ //  console.log(totalUpvotes);
+   return totalUpvotes;
+}
+//Function to add downvotes, it returns total number of downvotes
+
+async function downVote(reviewId,email){
+  //Check if the user has previously upvoted or downvoted
+  if (!reviewId) throw 'You must provide a review id!';
+  if(!email) throw 'You must provide an email id';
+  const reviewCollection = await reviews();
+  const objId = ObjectId.createFromHexString(reviewId);
+  const reviewer = await reviewCollection.findOne({_id: objId});
+  for(e in reviewer.downvotes){
+  if(email ==reviewer.downvotes[e]){
+    throw "You can only downvote a review once!";
+  }
+  }
+  let x;
+  for(x in reviewer.upvotes){
+    if(email==reviewer.upvotes[x]){
+      //So the user had previously upvoted a review and now wants to downvote it
+     const updateInfo = await reviewCollection.updateOne({_id: reviewer._id}, {$pull: {upvotes: email}});
+     if (!updateInfo.matchedCount && !updateInfo.modifiedCount) throw 'Removal failed';
+    }
+     }
+     const newDown=reviewCollection.updateOne({_id: reviewer._id},{ $addToSet: {downvotes: email }});
+     const reviewDown = await reviewCollection.findOne({_id: objId});
+     let totalDownvotes=reviewDown.downvotes.length;
+    // console.log(totalDownvotes);
+     return totalDownvotes;
+  }
+
+
+module.exports={addReview,getReview,getAllReviewsOfGame,addCommentsToReview,deleteCommentFromReviews,upVote,downVote}
 //,updateReview,removeReviewDueToUser,removeReview
