@@ -16,7 +16,11 @@
 				</div>
 				<a href="services.html"> Games </a>
 				<a href="contact.html"> Contact </a>
-				<a id="sign-in" href="index.html">Sign In</a>
+				{{#if loggedin}}
+				<li><a id="sign-in" href="/logout">Sign Out</a></li>
+				{{else}}
+				<a id="sign-in" href="/login">Sign In</a>
+				{{/if}}
 				<a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 			</div>
 		</div>
@@ -25,8 +29,6 @@
 <div id="wrapper">
 	{{#if loggedin}}
 	You are logged in as {{currentUser}}
-	<a href="/logout" id="logoutlink"> logout </a>
-	<style>#logoutlink {color:#374353}</style>
 	{{/if}}
 	<div class="slideshow-all">
 		<div class="slideshow-container">
