@@ -13,6 +13,13 @@
         </ul>
     </nav>
     <article>
+        <form action="/searchresults" method="POST">
+            <label for="input"> Search for a game. </label>
+            <div>
+                <input type="text" name="text-to-test" placeholder="Word" value="" id="input" />
+                <button type="submit">Let's go!</button>
+            </div>
+        </form>
         {{#if loggedin}}
         You are logged in as {{currentUser}}
         {{/if}}
