@@ -107,6 +107,8 @@ async function deleteCommentFromReviews(reviewId,commentId){
 
 }
 
+//Function to remove a review
+
 //Function to add upvotes, it returns total number of upvotes
 
 async function upVote(reviewId,email){
@@ -118,7 +120,14 @@ const objId = ObjectId.createFromHexString(reviewId);
 const reviewer = await reviewCollection.findOne({_id: objId});
 for(e in reviewer.upvotes){
 if(email ==reviewer.upvotes[e]){
-  throw "You can only upvote a review once!";
+  //So the user wants to undo his previous upvote
+  //throw "You can only upvote a review once!";
+  const updateInfo = await reviewCollection.updateOne({_id: reviewer._id}, {$pull: {upvotes: email}});
+   if (!updateInfo.matchedCount && !updateInfo.modifiedCount) throw 'Removal failed';
+   const reviewUp = await reviewCollection.findOne({_id: objId});
+   let totalUpvotes=reviewUp.upvotes.length;
+ //  console.log(totalUpvotes);
+   return totalUpvotes;
 }
 }
 let x;
@@ -146,7 +155,13 @@ async function downVote(reviewId,email){
   const reviewer = await reviewCollection.findOne({_id: objId});
   for(e in reviewer.downvotes){
   if(email ==reviewer.downvotes[e]){
-    throw "You can only downvote a review once!";
+    //throw "You can only downvote a review once!";
+    //If a user again tries to downvote, it would undo the previous downvote
+    const updateInfo = await reviewCollection.updateOne({_id: reviewer._id}, {$pull: {downvotes: email}});
+    if (!updateInfo.matchedCount && !updateInfo.modifiedCount) throw 'Removal failed';
+    const reviewDwn = await reviewCollection.findOne({_id: objId});
+    let totalDownvotes=reviewDwn.downvotes.length;
+    return totalDownvotes;
   }
   }
   let x;
