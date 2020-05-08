@@ -1,11 +1,11 @@
 const mongoCollections = require('../config/mongoCollections');
 const comments=mongoCollections.comments;
 const { ObjectId } = require('mongodb');
-const user=require("./users");
+const user=require("../data/users");
 const users=mongoCollections.users;
-const game=require("./games");
+const game=require("../data/games");
 const games=mongoCollections.games;
-const review=require("./reviews");
+const review=require("../data/reviews");
 const reviews = mongoCollections.reviews;
 
 //addComment function adds a comment to a review

@@ -5,7 +5,10 @@ const uuid = require('uuid');
 
 async function addGame(nameOfGame,gameIcon){
     const gameCollection = await games();
-
+    if (!nameOfGame) throw 'You must provide a name for your game';
+    if(typeof(nameOfGame)!='string') throw 'Name of game should be of type: string';
+    if (!gameIcon) throw 'You must provide a path for icon of your game';
+    if(typeof(gameIcon)!='string') throw 'Path of icon should be of type: string';
 
     let newGame={
         nameOfGame: nameOfGame,
