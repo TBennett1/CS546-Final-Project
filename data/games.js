@@ -43,4 +43,22 @@ async function getGame(name){
     return gameo;
 }
 
-module.exports={addGame,getAllGames,getGame}
+async function addReviewsToGame(gname, rid){
+    const gameCollection = await games();
+
+    const updatedInfo = await gameCollection.updateOne({nameOfGame: gname}, {$addToSet: {reviews: rid}});
+    if(!updatedInfo.matchedCount && !updatedInfo.modifiedCount) throw 'Update failed';
+
+    return await this.getGame(gname);
+}
+
+async function addRating(gname, rating){
+    const gameCollection = await games();
+
+    const updatedInfo = await gameCollection.updateOne({nameOfGame: gname}, {$addToSet: {ratings: rating}});
+    if(!updatedInfo.matchedCount && !updatedInfo.modifiedCount) throw 'Update failed';
+
+    return await this.getGame(gname);
+}
+
+module.exports={addGame,getAllGames,getGame, addReviewsToGame, addRating};

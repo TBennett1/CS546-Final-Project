@@ -11,13 +11,15 @@
   "author": "Tehreem, Matthew, Tarquin",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^4.0.1",
-    "bluebird": "^3.7.2",
     "express": "^4.17.1",
     "express-handlebars": "^3.1.0",
     "handlebars": "^4.7.3",
     "mongodb": "^3.3.0-beta2",
+    "uuid": "^3.3.2",
     "mongoose": "5.9.7",
-    "uuid": "^3.3.2"
+    "bluebird": "^3.7.2",
+    "bcryptjs": "^2.4.3",
+    "express-session": "^1.17.0",
+    "bcrypt": "^3.0.6"
   }
 }

@@ -52,13 +52,13 @@ async function getAllUsers(){
 
     return allUsers;
 }
+
 async function getUser(email){
-    if (!email) throw 'You must provide an id to search for';
+    if (!email) throw 'You must provide an email to search for';
 
     const userCollection = await users();
-  // 
-   // const objId = ObjectId.createFromHexString(id);
-    const usero = await userCollection.findOne({email:email});
+    // const objId = ObjectId.createFromHexString(id);
+    const usero = await userCollection.findOne({email:email.toLowerCase()});
     if (usero === null) throw 'No user with that id';
 
     return usero;
@@ -134,12 +134,25 @@ async function updateUser(email,firstName,lastName,password){
 
   //The following function will add reviews to user
 async function addReviewsToUser(email,reviewId){
-  const userCollection = await users();
-  email=email.toLowerCase();
-  const updateInfo = await userCollection.updateOne({email:email}, {$addToSet: {usersReviews: reviewId}});
-  if (!updateInfo.matchedCount && !updateInfo.modifiedCount) throw 'Update failed';
+    const userCollection = await users();
+    email=email.toLowerCase();
+    const updateInfo = await userCollection.updateOne({email:email}, {$addToSet: {usersReviews: reviewId}});
+    if (!updateInfo.matchedCount && !updateInfo.modifiedCount) throw 'Update failed';
 
-  return await this.getUser(email);
+    return await this.getUser(email);
 }
 
-module.exports={addUser,getAllUsers,getUser,addUserSeed,updateUser,addReviewsToUser}
+async function addCommentsToUser(email,commentId){
+    if (!email) throw 'You must provide an email id to comment';
+    if(!commentId) throw 'You must provide a comment id';
+    const userCollection = await users();
+    const objId = ObjectId.createFromHexString(commentId);
+    const userComment = await userCollection.findOne({email: email});
+    if (userComment === null) throw 'No user with that email';
+    const updateInfo = await userCollection.updateOne({email: email}, {$addToSet: {reviewComments: commentId}});
+    if (!updateInfo.matchedCount && !updateInfo.modifiedCount) throw 'Update failed';
+
+    return userComment;
+}
+
+module.exports={addUser,getAllUsers,getUser,addUserSeed,updateUser,addReviewsToUser, addCommentsToUser}

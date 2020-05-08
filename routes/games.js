@@ -20,35 +20,40 @@ router.get('/', async (req, res)=>{
 
 router.get('/:game', async (req, res) =>{
     let reviews = [];
-    let comments = [];
-    let upvotes = 0;
-    let downvotes = 0;
-    
+    let total = 0;
+
     let gm = await game.getGame(req.params.game);
     
-    for (let j = 0; j < gm.reviews.length; j++){
-        const rid = gm.reviews[j];
-        let r = await review.getReviewById(rid);
-        upvotes = r.upvotes.length;
-        downvotes = r.downvotes.length;
-        reviews.push(r);
-    }
-    for (let i = 0; i < reviews.length; i++) {
-        const r = reviews[i];
+    for (let i = 0; i < gm.reviews.length; i++){
+        let rvw = {};
+        const rid = gm.reviews[i];
+        let r = await review.getReview(rid);
+        let author = await user.getUser(r.email);
+        let comments = [];
+
         for (let j = 0; j < r.comments.length; j++){
             const cid = r.comments[j];
-            let c = await comment.getCommentById(cid);
-            let usr = await user.getUserById(c.userId);
-
-            comments.push([usr, c]);
+            let c = await comment.getComment(cid);
+            let usr = await user.getUser(c.email);
+            comments.push({'author': usr, 'comment': c.userComments});
         }
+        
+        rvw["review"] = r;
+        rvw["upvotes"] = r.upvotes.length;
+        rvw["downvotes"] = r.downvotes.length;
+        rvw["author"] = author;
+        rvw["comments"] = comments;
+        reviews.push(rvw);
     }
+
+    for(let i = 0; i < reviews.length; i++){
+        total += reviews[i].review.rating;
+    }
+    
     res.render('pages/game', {
         game: gm, 
         reviews: reviews,
-        comments: comments, 
-        upvotes: upvotes, 
-        downvotes: downvotes
+        avgRating: total/reviews.length
     });
 });
 

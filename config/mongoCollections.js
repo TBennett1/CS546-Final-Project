@@ -18,5 +18,6 @@ const getCollectionFn = collection => {
 module.exports = {
   games: getCollectionFn("games"),
   users: getCollectionFn("users"),
-  reviews: getCollectionFn("reviews")
+  reviews: getCollectionFn("reviews"),
+  comments:getCollectionFn("comments")
 };
