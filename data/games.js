@@ -19,7 +19,7 @@ async function addGame(nameOfGame,gameIcon){
     const newId = insertInfo.insertedId;
     newIdString=newId.toString();
    // console.log(newIdString);
-    const game = await this.getGame(newIdString);
+    const game = await this.getGame(nameOfGame);
     return game;
 }
 
@@ -31,16 +31,34 @@ async function getAllGames(){
 
     return allGames;
 }
-async function getGame(id){
-    if (!id) throw 'You must provide an id to search for';
+async function getGame(name){
+    if (!name) throw 'You must provide an id to search for';
 
     const gameCollection = await games();
-  // 
-    const objId = ObjectId.createFromHexString(id);
-    const gameo = await gameCollection.findOne({_id: objId});
+    
+    // const objId = ObjectId.createFromHexString(id);
+    const gameo = await gameCollection.findOne({'nameOfGame': name});
     if (gameo === null) throw 'No game with that id';
 
     return gameo;
 }
 
-module.exports={addGame,getAllGames,getGame}
+async function addReviewsToGame(gname, rid){
+    const gameCollection = await games();
+
+    const updatedInfo = await gameCollection.updateOne({nameOfGame: gname}, {$addToSet: {reviews: rid}});
+    if(!updatedInfo.matchedCount && !updatedInfo.modifiedCount) throw 'Update failed';
+
+    return await this.getGame(gname);
+}
+
+async function addRating(gname, rating){
+    const gameCollection = await games();
+
+    const updatedInfo = await gameCollection.updateOne({nameOfGame: gname}, {$addToSet: {ratings: rating}});
+    if(!updatedInfo.matchedCount && !updatedInfo.modifiedCount) throw 'Update failed';
+
+    return await this.getGame(gname);
+}
+
+module.exports={addGame,getAllGames,getGame, addReviewsToGame, addRating};
