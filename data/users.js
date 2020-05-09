@@ -111,7 +111,7 @@ async function addUserSeed(firstName,lastName,email,password){
 //The following function allows a user to modify his/her profile:
 async function updateUser(email,firstName,lastName,password){
    
-    if (!email) throw 'Cannot update band without an email id';
+    if (!email) throw 'Cannot update user without an email id';
     if(typeof(firstName)!='string') throw 'First Name should be of type: string';
     if (typeof(lastName)!='string') throw 'Last Name should be of type: string';
     if (typeof(password)!='string') throw 'Password should be of type: String';
