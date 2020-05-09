@@ -4,9 +4,6 @@ const bcrypt = require('bcrypt');
 const userData = require('../data/users');
 
 router.get('/', async (req, res) => {
-  res.locals.metaTags = {
-    css: '/public/css/style.css'
-  };
   res.render('pages/login');
 });
 
@@ -42,8 +39,9 @@ router.post("/", async (req, res) => {
           //Worked~
           currentUserFullName = user.firstName + " " + user.lastName;
           req.session.user = currentUserFullName;
+          req.session.user.id = user._id;
           req.session.AuthCookie = req.sessionID;
-          return res.redirect('/index');
+          return res.redirect('/');
         }
         else {
           res.status(401).render('pages/login', { error: true, etext: "Invalid Username/Password" });

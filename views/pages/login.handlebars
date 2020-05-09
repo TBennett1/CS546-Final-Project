@@ -1,3 +1,10 @@
+<nav>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/games">Games</a></li>
+        <li><a class="active" href="/login">Sign In</a></li>
+    </ul>
+</nav>
 {{#if error}}
 <p> {{etext}} </p>
 {{/if}}
@@ -8,7 +15,7 @@
 </label>
 
 <label> Password
-    <input type="text" name="password" id="password">
+    <input type="password" name="password" id="password">
 </label>
 <button type="submit">Login</button>
 

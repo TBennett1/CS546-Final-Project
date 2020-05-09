@@ -3,9 +3,6 @@ const router = express.Router();
 const gamesData = require('../data/games');
 
 router.get('/', async (req, res) => {
-    res.locals.metaTags = {
-        css: '/public/css/supermariogalaxy2style.css'
-    };
     if (req.session.user) {
         req.session.user.log = true;
         res.render('pages/searchresults', { loggedin: true, currentUser: req.session.user });
@@ -16,9 +13,6 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    res.locals.metaTags = {
-        css: '/public/css/supermariogalaxy2style.css'
-    };
     const data = req.body;
     if (!data['text-to-test']) {
         res.status(400);
@@ -45,9 +39,7 @@ router.post('/', async (req, res) => {
         let gameResultHandleBarInput = [];
         console.log("Checkpoint 3");
         for (let i=0; i<gameSearchResult.length; i++) {
-            gameResultHandleBarInput.push({nameURL: gameSearchResult[i].nameOfGame.toLowerCase().trim().replace(/[^a-zA-Z 0-9]+/g,'').replace(/\s/g, ''), fullName: gameSearchResult[i].nameOfGame, gamePhoto: gameSearchResult[i].gameIcon.substr(9, gameSearchResult[i].gameIcon.length-1)});
-            //gameSearchResult[i].gameIcon = gameSearchResult[i].gameIcon.substr(9, gameSearchResult[i].gameIcon.length-1);
-            //console.log(gameSearchResult.nameOfGame);
+            gameResultHandleBarInput.push({nameURL: gameSearchResult[i].nameOfGame.toLowerCase().trim().replace(/[^a-zA-Z 0-9]+/g,'').replace(/\s/g, ''), fullName: gameSearchResult[i].nameOfGame, gamePhoto: gameSearchResult[i].gameIcon});
             console.log("Checkpoint 4");
         }
         console.log("Checkpoint 5");

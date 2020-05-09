@@ -13,11 +13,6 @@ router.get('/', async (req, res)=>{
     res.render('pages/allGames', {game: allGames});
 });
 
-// router.get('/:id', async (req, res) =>{
-//     gm = await game.getGame(req.params.id);
-//     res.redirect('/:game');
-// });
-
 router.get('/:game', async (req, res) =>{
     let reviews = [];
     let total = 0;

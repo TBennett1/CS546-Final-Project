@@ -2,9 +2,13 @@
     <nav>
         <ul>
             <li><a class="active" href="/">Home</a></li>
-            <li><a href="index.html">About Us</a></li>
             <li><a href="/games">Games</a></li>
-            <li><a href="index.html">Sign In</a></li>
+		{{#if loggedin}}
+			<li><a href='/user/{{currentUser.id}}'>{{currentUser}}</a></li>
+            <li><a href="/logout">Log Out</a></li>
+			{{else}}
+			<li><a href="/login">Sign In</a></li>
+		{{/if}}
         </ul>
     </nav>
     <h1>Featured Games</h1>

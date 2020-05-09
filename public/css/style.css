@@ -125,6 +125,21 @@ div > a:visited{
 	text-align: center;
 }
 
+.searchbar{
+	text-align: center;
+	padding-top: 2%;
+}
+
+.searchbar label{
+	color: rgb(0, 87, 87);
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.searchbar form{
+	display: inline;
+}
+
 *{
 	box-sizing: border-box;
 }
