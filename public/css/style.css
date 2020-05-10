@@ -195,6 +195,11 @@ div > a:visited{
 	text-align: center;
 }
 
+.reviews p{
+	font-size: 14pt;
+	padding-bottom: 2%;
+}
+
 .col-half{
 	float: left;
 	width: 50%;
@@ -210,12 +215,17 @@ div > a:visited{
 
 .profile h3{
 	text-align: left;
+	margin-left: 2%;
+}
+
+.profile button{
+	margin-left: 2%;
 }
 
 .profile img{
     height: 250px;
 	width: auto;
-	padding-right: 2%;
+	margin: 2%;
 }
 
 .updown{

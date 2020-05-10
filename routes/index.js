@@ -18,6 +18,8 @@ const constructorMethod = (app) => {
     app.use('/signupsuccess', signUpSuccess);
 
     app.use('*', (req, res) => {
+        console.log('redirecting...');
+        
         res.redirect('/');
     });
 };

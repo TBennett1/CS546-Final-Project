@@ -11,7 +11,12 @@ app.use(express.static('./images'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
+const handlebarsInstance = exphbs.create({
+    defaultLayout: 'main',
+    partialsDir: ['views/partials/']
+});
+
+app.engine('handlebars', handlebarsInstance.engine);
 app.set('view engine', 'handlebars');
 app.use(session({
   name: 'Test',

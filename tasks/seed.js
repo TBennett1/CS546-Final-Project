@@ -27,7 +27,7 @@ async function main(){
 		await games.addGame("DOOM", "Doom.jpg");
 		await games.addGame("The Last of Us", "TheLastofUs.jpg");
 		await games.addGame("Super Mario Odyssey", "SuperMarioOdyssey.jpg");
-		await games.addGame("DOOM Enternal", "DOOMEnternal.jpg");
+		await games.addGame("DOOM Eternal", "DOOMEternal.jpg");
 
 		await users.addUserSeed("Jane","Doe","janedoe@gmail.com","$2a$16$3eiILObl9M5qN8CzPYArau4p5SFyAjNexctMDlamH1jxVgBPmsIdi", "pic.png");
 		await users.addUserSeed("Pascal","Clifford","pclifford2@angelfire.com","$2a$16$Bhop3tLEwnjUztZX2U9iCO6T1ODBEJyRAPrGrLVPcb3oGUkskvX6G", "pascal.jpg");

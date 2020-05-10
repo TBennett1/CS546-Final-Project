@@ -19,7 +19,8 @@
         {{#each reviews}}
             <section class="col-quarter">
                 <h4>{{this.author.firstName}} {{this.author.lastName}}</h4>
-                <h4>{{this.review.rating}}/10 {{this.review.userReviews}}</h4>
+                <h4>Rating: {{this.review.rating}}/10 </h4>
+                <h4>Review: {{this.review.userReviews}}</h4>
                 <p><img class="updown" src="../up.png"/> {{this.upvotes}} <img class="updown" src="../down.png"/> {{this.downvotes}}</p>
                 <h5>Comments</h5>
                 {{#each comments}}
