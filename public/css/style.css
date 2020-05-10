@@ -28,15 +28,20 @@ li a {
 }
   
 li a:hover {
-	background-color: teal;
+	background-color: maroon;
 }
 
 .header{
 	width: 100%;
 	text-align: center;
 	display: block;
-	color: maroon;
+	color: rgb(0, 87, 87);
 	padding: 1%;
+}
+
+a{
+	text-decoration: none;
+	color: rgb(0, 87, 87);
 }
 
 article{
@@ -178,6 +183,18 @@ div > a:visited{
 	clear: both;
 }
 
+.reviewImage{
+	display: flex;
+	margin-left: auto;
+	margin-right: auto;
+	padding-top: 2%;
+	width: 400px;
+}
+
+.reviews{
+	text-align: center;
+}
+
 .col-half{
 	float: left;
 	width: 50%;
@@ -191,21 +208,14 @@ div > a:visited{
 	border-right: solid;
 }
 
-.reviewImage{
-	display: flex;
-	margin-left: auto;
-	margin-right: auto;
-	padding-top: 2%;
-	width: 400px;
+.profile h3{
+	text-align: left;
 }
 
-
-.profile{
+.profile img{
     height: 250px;
-    display: flex;
-    justify-content: center;
-    width: auto;
-    padding: 5%;
+	width: auto;
+	padding-right: 2%;
 }
 
 .updown{

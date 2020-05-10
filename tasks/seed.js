@@ -24,15 +24,16 @@ async function main(){
 		await games.addGame("Dark Souls 3", "DarkSouls3.jpg");
 		await games.addGame("Portal", "Portal.jpg");
 		await games.addGame("Chrono Trigger", "ChronoTrigger.jpg");
-		await games.addGame("Doom", "Doom.jpg");
+		await games.addGame("DOOM", "Doom.jpg");
 		await games.addGame("The Last of Us", "TheLastofUs.jpg");
 		await games.addGame("Super Mario Odyssey", "SuperMarioOdyssey.jpg");
+		await games.addGame("DOOM Enternal", "DOOMEnternal.jpg");
 
-		await users.addUserSeed("Jane","Doe","janedoe@gmail.com","$2a$16$3eiILObl9M5qN8CzPYArau4p5SFyAjNexctMDlamH1jxVgBPmsIdi");
-		await users.addUserSeed("Pascal","Clifford","pclifford2@angelfire.com","$2a$16$Bhop3tLEwnjUztZX2U9iCO6T1ODBEJyRAPrGrLVPcb3oGUkskvX6G");
-		await users.addUserSeed("Kristin","Duffus","kduffus4@craigslist.org","$2a$16$32cJ3Mo4eVDjS5CNpyU4U.fX3L0ymNBEDojal5kTAEttqVPQyyRc6");
-		await users.addUserSeed("Theo","Longo","tlongo5@fema.gov","$2a$16$shV1LpLoZvDcEqVKmx/sQuxwQwshINLsPMTqEvFp996tOk9uduSVy");
-		await users.addUserSeed("Vin","Copson","Vcopson4@wufoo.com","$2a$16$fXqeuI6NMdFhX.9ux6aPEOfA2JkSOb28Ix6or8EhNW7tcMtiykDGi");
+		await users.addUserSeed("Jane","Doe","janedoe@gmail.com","$2a$16$3eiILObl9M5qN8CzPYArau4p5SFyAjNexctMDlamH1jxVgBPmsIdi", "pic.png");
+		await users.addUserSeed("Pascal","Clifford","pclifford2@angelfire.com","$2a$16$Bhop3tLEwnjUztZX2U9iCO6T1ODBEJyRAPrGrLVPcb3oGUkskvX6G", "pascal.jpg");
+		await users.addUserSeed("Kristin","Duffus","kduffus4@craigslist.org","$2a$16$32cJ3Mo4eVDjS5CNpyU4U.fX3L0ymNBEDojal5kTAEttqVPQyyRc6", "kristin.jpeg");
+		await users.addUserSeed("Theo","Longo","tlongo5@fema.gov","$2a$16$shV1LpLoZvDcEqVKmx/sQuxwQwshINLsPMTqEvFp996tOk9uduSVy", "theo.jpg");
+		await users.addUserSeed("Vin","Copson","Vcopson4@wufoo.com","$2a$16$fXqeuI6NMdFhX.9ux6aPEOfA2JkSOb28Ix6or8EhNW7tcMtiykDGi", "vin.png");
 		
 		let review1=await reviews.addReview(`${createdGame5.nameOfGame}`,"tlOngo5@fema.gov","Fun to play", 9);
 		let review2=await reviews.addReview(`${createdGame5.nameOfGame}`,"janedoe@gmail.com","great", 8);

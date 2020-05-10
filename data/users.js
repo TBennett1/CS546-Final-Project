@@ -1,7 +1,6 @@
 const mongoCollections = require('../config/mongoCollections');
 const users = mongoCollections.users;
 const { ObjectId } = require('mongodb');
-const uuid = require('uuid');
 const Bcrypt = require("bcrypt");
 // The following function adds user through GET request:
 async function addUser(firstName,lastName,email,password){
@@ -59,13 +58,25 @@ async function getUser(email){
     const userCollection = await users();
     // const objId = ObjectId.createFromHexString(id);
     const usero = await userCollection.findOne({email:email.toLowerCase()});
-    if (usero === null) throw 'No user with that id';
+    if (usero === null) throw 'No user with that email';
 
     return usero;
 }
+
+async function getUserById(id){
+    if(!id) throw "You must provide an id to search for.";
+
+    const userCollection = await users();
+    const objId = ObjectId.createFromHexString(id);
+    const user = await userCollection.findOne({_id: objId});
+    if(user === null) throw "No user with that id.";
+
+    return user;
+}
+
 //The following function is used to add user to seed the database:
 
-async function addUserSeed(firstName,lastName,email,password){
+async function addUserSeed(firstName,lastName,email,password,profilePic){
     const userCollection = await users();
     if (!firstName) throw 'You must provide a first name';
     if(typeof(firstName)!='string') throw 'First Name should be of type: string';
@@ -75,6 +86,8 @@ async function addUserSeed(firstName,lastName,email,password){
     if(typeof(email)!='string') throw 'Email should be of type: string';
     if(!password) throw 'Password cannot be left blank';
     if(typeof(password)!="string") throw 'Invalid type of pwd'
+    if(!profilePic) throw 'You must provide a profile picture.'
+    if(typeof(profilePic) != 'string') throw 'Invalid type of profile pic. Should be String.'
     //Checking if user (email id) already exists in the database
     const allUsers = await userCollection.find({}).toArray();
    /*
@@ -95,7 +108,7 @@ async function addUserSeed(firstName,lastName,email,password){
         usersReviews:[],
         votedReviews:[],
         reviewComments:[],
-        userProfilePicture:""
+        userProfilePicture: profilePic
     };
     const insertInfo = await userCollection.insertOne(newUser);
     if (insertInfo.insertedCount === 0) throw 'Could not add user';
@@ -155,4 +168,4 @@ async function addCommentsToUser(email,commentId){
     return userComment;
 }
 
-module.exports={addUser,getAllUsers,getUser,addUserSeed,updateUser,addReviewsToUser, addCommentsToUser}
+module.exports={addUser,getAllUsers,getUser,getUserById,addUserSeed,updateUser,addReviewsToUser, addCommentsToUser};

@@ -14,6 +14,7 @@ router.get('/', async (req, res)=>{
 });
 
 router.get('/:game', async (req, res) =>{
+    let flag=false;
     let reviews = [];
     let total = 0;
 
@@ -48,8 +49,15 @@ router.get('/:game', async (req, res) =>{
     for(let i = 0; i < reviews.length; i++){
         total += reviews[i].review.rating;
     }
+
+    if(req.session.user){
+        flag=true;
+    }    
     
     res.render('pages/game', {
+        loggedin: flag,
+        userID: req.session.uid,
+        currentUser: req.session.user,
         game: gm, 
         reviews: reviews,
         avgRating: total/reviews.length

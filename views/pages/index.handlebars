@@ -4,7 +4,7 @@
             <li><a class="active" href="/">Home</a></li>
             <li><a href="/games">Games</a></li>
 		{{#if loggedin}}
-			<li><a href='/user/{{currentUser.id}}'>{{currentUser}}</a></li>
+			<li><a href='/user/{{userID}}'>{{currentUser}}</a></li>
             <li><a href="/logout">Log Out</a></li>
 			{{else}}
 			<li><a href="/login">Sign In</a></li>
@@ -44,7 +44,7 @@
     <div class="gallery">
         <div class="row">
             <div class="col-half">
-                <img class="image" src="DOOM_Eternal_packart.jpg" alt="Doom"/>
+                <img class="image" src="DOOMEternal.jpg" alt="Doom"/>
             </div>
             <div class="col-half">
                 <p>Eight months after the events of 2016's Doom, Earth has been overrun by demonic forces, wiping out 60% of the planet's population, under the now-corrupted Union Aerospace Corporation. What remains of humanity has either fled Earth or have banded together as part of ARC, a resistance movement formed to stop the invasion but have gone into hiding after suffering heavy losses. The Doom Slayer, having previously been betrayed and teleported away by Dr. Samuel Hayden, returns with a satellite fortress controlled by the AI VEGA to quell the demonic invasion by killing the Hell Priests; Deags Nilox, Ranak, and Grav. The priests serve an angelic being known as the Khan Maykr who seeks to sacrifice mankind.</p>
