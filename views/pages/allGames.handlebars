@@ -4,6 +4,7 @@
         <li><a class="active" href="/games">Games</a></li>
 		{{#if loggedin}}
 			<li><a href='/user'>{{currentUser}}</a></li>
+            <li><a href="/logout">Log Out</a></li>
 			{{else}}
 			<li><a href="/login">Sign In</a></li>
 		{{/if}}
@@ -12,6 +13,6 @@
 <section>
     {{#each game}}
         <img src="{{gameIcon}}" class="image" alt="{{nameOfGame}}"/>
-        <h2>{{nameOfGame}}</h2>
+        <h2><a href="/games/{{nameOfGame}}">{{nameOfGame}}</a></h2>
     {{/each}}
 </section>

@@ -2,21 +2,26 @@ const express = require('express');
 const router = express.Router();
 const data = require('../data');
 const userData = data.users;
-const postData = data.reviews;
+const reviewData = data.reviews;
 
 router.get('/:id', async (req, res)=>{
+    let user;
+    let reviews = [];
+
     try {
-        let user = await userData.getUser(req.params.id);
-        let reviews = [];
-        for (let i = 0; i < user.usersReviews.length; i++) {
-            const element = user.usersReviews[i];
-            let review = await postData.getPostById(element);
-            reviews.push(review);
-        }
-        res.render('pages/user', {flag: false, error: "", firstName: user.firstName, lastName: user.lastName, email: user.email, posts: reviews})
+        user = await userData.getUserById(req.params.id);   
     } catch (e) {
-        res.status(404).render('pages/user', {flag: true, error: "User not found"});
+        res.status(404).render('pages/user', {flag: true, error: "User not found", userID: req.session.uid, currentUser: req.session.user});
     }
+
+    for (let i = 0; i < user.usersReviews.length; i++) {
+        const rid = user.usersReviews[i];
+        let review = await reviewData.getReview(rid);
+        reviews.push(review);
+    }
+    console.log(reviews);
+    
+    res.render('pages/user', {flag: false, error: "", loggedin: true, userID: req.session.uid, currentUser: req.session.user,firstName: user.firstName, lastName: user.lastName, email: user.email, posts: reviews, profilePic: user.userProfilePicture})
 });
 
 router.put('/edit', async (req, res)=> {

@@ -32,16 +32,16 @@ app.use('/private', function (req, res, next) {
 
 app.use( function (req, res, next) {
   time = new Date().toUTCString();
-  console.log(req.session);
-  if(req.session.log ){
-      console.log("[" + time + "]" + req.method + " " + req.originalUrl + "(Authenticated User)");
+  if(req.session.user){
+      console.log("[" + time + "] " + req.method + " " + req.originalUrl + " (Authenticated User)");
   }
   else{
-      console.log("[" + time + "]" + req.method + " " + req.originalUrl + "(Non-Authenticated User)");
+      console.log("[" + time + "] " + req.method + " " + req.originalUrl + " (Non-Authenticated User)");
   }
-next();
-
+  console.log(req.session);
+  next();
 });
+
 configRoutes(app);
 
 try{
