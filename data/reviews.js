@@ -181,4 +181,39 @@ async function downVote(reviewId,email){
 }
 
 
-module.exports={addReview,getReview,getAllReviewsOfGame,downVote,upVote, deleteCommentFromReviews, addCommentsToReview}
+  //function to update review
+  async function updateReview(reviewId,email,userReviews,rating){
+    if (!reviewId) throw 'Cannot update review without id';
+    if(typeof(reviewId)!='string') throw 'Id of review should be of type: string';
+    if (!email) throw 'You must provide an email id to give a review';
+    if(typeof(email)!='string') throw 'Email Id should be of type: string';
+  if (!userReviews) throw 'You must provide a review for the game';
+  if(typeof(userReviews)!='string') throw 'Reviews should be of valid string type';
+  if (!rating) throw 'You must provide a rating';
+  if(typeof(rating)!='number') throw "Rating should be of type number";
+ 
+  //Check if the same user who wrote the review is trying to update it
+  const reviewsCollection = await reviews();
+  let updateReview = {
+    userReviews:userReviews,
+    rating:rating
+  };
+  //getreview and check if email id matches
+  
+  const check=await this.getReview(reviewId);
+  if (check.email!=email)
+  {
+    throw "You are not authorized to update this review!";
+    return;
+  }  
+  const objId = ObjectId.createFromHexString(reviewId);
+  const updatedInfo = await reviewsCollection.updateOne({_id:objId}, {$set: updateReview});
+  if (updatedInfo.modifiedCount === 0) {
+    throw 'could not update review successfully';
+  }
+
+  return await this.getReview(reviewId);
+}
+ 
+
+module.exports={addReview,getReview,getAllReviewsOfGame,addCommentsToReview,deleteCommentFromReviews,upVote,downVote,updateReview}
