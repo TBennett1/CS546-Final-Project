@@ -45,7 +45,7 @@ app.use( function (req, res, next) {
 Handlebars.registerHelper('loud', function (aString) {
   return aString.replace(/\s/gi,"_");
 });
-//
+//Reference: https://handlebarsjs.com/examples/helper-simple.html
 configRoutes(app);
 
 try{
