@@ -1,9 +1,10 @@
 # Game ON
 
 This is a group project for CS 546 Web Programming I @ Stevens Institute of Technology
+
 Group Members: Tehreem Tungekar, Matthew Dimaculangan, Tarquin Bennett
 
-This is a video game reviewer application which is written in Node.js and it uses MongoDB that allows authorized users to post reviews and ratings for video games.
+This is a Video Game Reviewer application which is written in Node.js and it uses MongoDB that allows authorized users to post reviews and ratings for video games.
 Users can also comment on reviews. If a user has not created a profile, he/she can still view the reviews.
 
 How to setup and use this app
