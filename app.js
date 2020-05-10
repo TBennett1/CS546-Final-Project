@@ -2,7 +2,7 @@ const express = require("express");
 const session = require('express-session');
 const app = express();
 const configRoutes = require("./routes");
-
+const Handlebars = require('handlebars');
 const static = express.static(__dirname + '/public');
 const exphbs = require('express-handlebars');
 
@@ -41,7 +41,11 @@ app.use( function (req, res, next) {
   console.log(req.session);
   next();
 });
-
+//Added Helper function to remove whitespaces from href
+Handlebars.registerHelper('loud', function (aString) {
+  return aString.replace(/\s/gi,"_");
+});
+//
 configRoutes(app);
 
 try{
