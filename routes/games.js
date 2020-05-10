@@ -17,8 +17,12 @@ router.get('/:game', async (req, res) =>{
     let reviews = [];
     let total = 0;
 
-    let gm = await game.getGame(req.params.game);
-    
+    //let gm = await game.getGame(req.params.game);
+    //Added these three lines to fix the href whitespace issue
+    let str=req.params.game;
+   let gameName=str.toString().replace(/\_/gi," ");
+    let gm = await game.getGame(gameName);
+    //
     for (let i = 0; i < gm.reviews.length; i++){
         let rvw = {};
         const rid = gm.reviews[i];
