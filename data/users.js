@@ -122,17 +122,24 @@ async function addUserSeed(firstName,lastName,email,password,profilePic){
 
 //Allow the users to edit their profile: Modification recommended by Prof. Hill
 //The following function allows a user to modify his/her profile:
-async function updateUser(email,firstName,lastName,password){
-   
+async function updateUser(email,firstName,lastName,password,newEmail){
     if (!email) throw 'Cannot update user without an email id';
     if(typeof(firstName)!='string') throw 'First Name should be of type: string';
     if (typeof(lastName)!='string') throw 'Last Name should be of type: string';
     if (typeof(password)!='string') throw 'Password should be of type: String';
-    password = await Bcrypt.hash(password, 16);
+    if (typeof(email)!='string') throw 'Email should be of type: String';
+
+    if(newEmail === '') newEmail = email;
+
+    let u = await this.getUser(email);
+    if(password != '') password = await Bcrypt.hash(password, 16);
+    else password = u.password;
+
     const userCollection = await users();
     const updateUser = {
       firstName:firstName,
       lastName:lastName,
+      email:newEmail,
       password:password
     };
   //  const { ObjectId } = require('mongodb');

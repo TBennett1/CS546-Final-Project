@@ -14,6 +14,8 @@ const constructorMethod = (app) => {
     app.use('/user', userRoute);
 
     app.use('*', (req, res) => {
+        console.log('redirecting...');
+        
         res.redirect('/');
     });
 };

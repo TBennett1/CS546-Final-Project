@@ -18,13 +18,15 @@
         <img src="../{{profilePic}}" class="profile"/>
         <h3>{{firstName}} {{lastName}}</h3>
         <h3>{{email}}</h3>
-        <h3><a href="/edit">Edit Profile</a></h3>
+        <section id="edit">
+            <button class='edit' type="button">Edit Profile</button>
+        </section>
     </div>
 
     <h2>Previous Posts</h2>
     {{#each posts}}
         <section class="reviews">
-            <h4><a href="/games/{{gameId}}">{{gameId}}</a></h4>
+            <h3><a href="/games/{{gameId}}">{{gameId}}</a></h3>
             <p>{{rating}} {{userReviews}}</p>
         </section>
     {{/each}}

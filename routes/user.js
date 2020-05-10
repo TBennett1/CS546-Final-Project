@@ -18,18 +18,22 @@ router.get('/:id', async (req, res)=>{
         const rid = user.usersReviews[i];
         let review = await reviewData.getReview(rid);
         reviews.push(review);
-    }
-    console.log(reviews);
-    
-    res.render('pages/user', {flag: false, error: "", loggedin: true, userID: req.session.uid, currentUser: req.session.user,firstName: user.firstName, lastName: user.lastName, email: user.email, posts: reviews, profilePic: user.userProfilePicture})
+    } 
+    res.render('pages/user', {flag: false, error: "", loggedin: true, userID: req.session.uid, currentUser: req.session.user,firstName: user.firstName, lastName: user.lastName, email: user.email, posts: reviews, profilePic: user.userProfilePicture});
 });
 
-router.put('/edit', async (req, res)=> {
-    let userInfo = req.body;
+router.post('/:id', async (req, res)=>{
+    const data = req.body;
+    let firstName = data.newName.split(' ')[0];
+    let lastName = data.newName.split(' ')[1];
 
-    if(!userInfo){
-        res.status(400).render('pages/user', {flag: true, error: "Must provide data to edit profile!"});
-    }
+    const updatedUser = await userData.updateUser(data.currEmail, firstName, lastName, req.body.newPassword, req.body.newEmail);
+    return res.redirect('/user/'+req.session.uid);
+});
+
+
+router.post('/:id/edit', async (req, res)=> {
+    res.render('partials/editProfile',{ layout: null , userID: req.session.uid});
 });
 
 module.exports = router;
