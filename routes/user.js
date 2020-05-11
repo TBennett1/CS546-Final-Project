@@ -29,8 +29,7 @@ router.post('/:id', async (req, res)=>{
     const data = req.body;
     let firstName = data.newName.split(' ')[0];
     let lastName = data.newName.split(' ')[1];
-
-    const updatedUser = await userData.updateUser(data.currEmail, firstName, lastName, req.body.newPassword, req.body.newEmail);
+const updatedUser = await userData.updateUser(req.session.uid, firstName, lastName, req.body.newPassword);
     return res.redirect('/user/'+req.session.uid);
 });
 
