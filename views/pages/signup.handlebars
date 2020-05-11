@@ -9,32 +9,40 @@
 <p> {{etext}} </p>
 {{/if}}
 <h2>Make an Account</h2>
-<form id = signup-form action = "/signup" method = "post">
-<label> Enter an email:
-    <input type="text" name="username" id="username">
-</label>
-<br>
-<br>
-<label> Enter a first name:
-    <input type="text" name="firstname" id="firstname">
-</label>
-<br>
-<br>
-<label> Enter a last name:
-    <input type="text" name="lastname" id="lastname">
-</label>
-<br>
-<br>
-<label> Please enter a password:
-    <input type="password" name="password1" id="password1">
-</label>
-<br>
-<br>
-<label> Confirm password:
-    <input type="password" name="password2" id="password2">
-</label>
-<br>
-<br>
-<button type="submit">Sign Up</button>
+<form id="signup-form" action="/signup" method="post" enctype="multipart/form-data">
+
+    <label> Enter an email:
+        <input type="text" name="username" id="username">
+    </label>
+    <br>
+    <br>
+    <label> Enter a first name:
+        <input type="text" name="firstname" id="firstname">
+    </label>
+    <br>
+    <br>
+    <label> Enter a last name:
+        <input type="text" name="lastname" id="lastname">
+    </label>
+    <br>
+    <br>
+    <label> Please enter a password:
+        <input type="password" name="password1" id="password1">
+    </label>
+    <br>
+    <br>
+    <label> Confirm password:
+        <input type="password" name="password2" id="password2">
+    </label>
+    <br>
+    <br>
+    <label> Choose profile picture:
+        <form method="post" enctype="multipart/form-data" action="/upload">
+            <input type="file" name="file">
+            <input type="submit" value="Submit">
+        </form>
+    </label>
+    <br>
+    <br>
 
 </form>
