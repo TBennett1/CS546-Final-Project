@@ -5,7 +5,7 @@ const Bcrypt = require("bcrypt");
 
 var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 // The following function adds user through GET request:
-async function addUser(firstName, lastName, email, password) {
+async function addUser(firstName, lastName, email, password, profilePic) {
     console.log("Checkpoint 5");
     const userCollection = await users();
     if (!firstName) throw 'You must provide a first name';
@@ -24,6 +24,8 @@ async function addUser(firstName, lastName, email, password) {
     console.log(lastName);
     console.log(email);
     console.log(password);
+    if (!profilePic) throw 'You must provide a profile picture.'
+    if (typeof (profilePic) != 'string') throw 'Invalid type of profile pic. Should be String.'
     const allUsers = await userCollection.find({}).toArray();
     console.log("Checkpoint 6.25");
     let index;
@@ -51,7 +53,7 @@ async function addUser(firstName, lastName, email, password) {
         usersReviews: [],
         votedReviews: [],
         reviewComments: [],
-        userProfilePicture: ""
+        userProfilePicture: profilePic
     };
     console.log("Checkpoint 9");
     const insertInfo = await userCollection.insertOne(newUser);
