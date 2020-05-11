@@ -7,7 +7,7 @@ const reviewData = data.reviews;
 router.get('/:id', async (req, res)=>{
     let user;
     let reviews = [];
-
+    if (req.session.user) {
     try {
         user = await userData.getUserById(req.params.id);   
     } catch (e) {
@@ -20,7 +20,10 @@ router.get('/:id', async (req, res)=>{
         reviews.push(review);
     } 
     res.render('pages/user', {flag: false, error: "", loggedin: true, userID: req.session.uid, currentUser: req.session.user,firstName: user.firstName, lastName: user.lastName, email: user.email, posts: reviews, profilePic: user.userProfilePicture});
-});
+}else{
+    res.render('pages/login',{error:"You need to log in!"});
+}}
+);
 
 router.post('/:id', async (req, res)=>{
     const data = req.body;
