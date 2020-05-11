@@ -14,8 +14,6 @@ async function addUser(firstName, lastName, email, password, profilePic) {
     if (typeof (lastName) != 'string') throw 'Last Name should be of type: string';
     if (!email) throw 'You must provide an email';
     if (typeof (email) != 'string') throw 'Email should be of type: string';
-    
-    if(!email.match(mailformat)) throw "Invalid email type"; //Reference: w3resource.com
     if (!password) throw 'Password cannot be left blank';
     if (password.length > 10) throw 'Length of password should be less than 10 characters'
     //Checking if user (email id) already exists in the database
@@ -24,8 +22,6 @@ async function addUser(firstName, lastName, email, password, profilePic) {
     console.log(lastName);
     console.log(email);
     console.log(password);
-    if (!profilePic) throw 'You must provide a profile picture.'
-    if (typeof (profilePic) != 'string') throw 'Invalid type of profile pic. Should be String.'
     const allUsers = await userCollection.find({}).toArray();
     console.log("Checkpoint 6.25");
     let index;
