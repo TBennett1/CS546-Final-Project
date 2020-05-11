@@ -24,7 +24,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }));
-
+/*
 app.use('/private', function (req, res, next) {
   if(!req.session.user){
       res.status(403);
@@ -34,7 +34,21 @@ app.use('/private', function (req, res, next) {
       next();
   }
 });
-
+*/
+//Fixed the unauthenticated user access issue:
+app.use('/user', (req, res, next) => {
+	if (!req.session.user) {
+		//return an HTML page saying that the user is not logged in, and the page must issue an HTTP status code of 403
+		//console.log("Error");
+		return res.status(403).render('pages/login', {
+		error: "User is not logged in."});
+			}	else {
+	//	req.method='GET';
+	console.log("here");
+		next();
+	}
+	
+});
 app.use( function (req, res, next) {
   time = new Date().toUTCString();
   if(req.session.user){
