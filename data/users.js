@@ -2,6 +2,8 @@ const mongoCollections = require('../config/mongoCollections');
 const users = mongoCollections.users;
 const { ObjectId } = require('mongodb');
 const Bcrypt = require("bcrypt");
+
+var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 // The following function adds user through GET request:
 async function addUser(firstName, lastName, email, password) {
     console.log("Checkpoint 5");
@@ -12,6 +14,8 @@ async function addUser(firstName, lastName, email, password) {
     if (typeof (lastName) != 'string') throw 'Last Name should be of type: string';
     if (!email) throw 'You must provide an email';
     if (typeof (email) != 'string') throw 'Email should be of type: string';
+    
+    if(!email.match(mailformat)) throw "Invalid email type"; //Reference: w3resource.com
     if (!password) throw 'Password cannot be left blank';
     if (password.length > 10) throw 'Length of password should be less than 10 characters'
     //Checking if user (email id) already exists in the database
@@ -102,6 +106,8 @@ async function addUserSeed(firstName, lastName, email, password, profilePic) {
     if (typeof (lastName) != 'string') throw 'Last Name should be of type: string';
     if (!email) throw 'You must provide an email';
     if (typeof (email) != 'string') throw 'Email should be of type: string';
+    
+    if(!email.match(mailformat)) throw "Invalid email type"; //Reference: w3resource.com
     if (!password) throw 'Password cannot be left blank';
     if (typeof (password) != "string") throw 'Invalid type of pwd'
     if (!profilePic) throw 'You must provide a profile picture.'
