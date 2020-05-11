@@ -144,16 +144,16 @@ async function addUserSeed(firstName, lastName, email, password, profilePic) {
 
 //Allow the users to edit their profile: Modification recommended by Prof. Hill
 //The following function allows a user to modify his/her profile:
-async function updateUser(email,firstName,lastName,password,newEmail){
-    if (!email) throw 'Cannot update user without an email id';
+async function updateUser(id,firstName,lastName,password){
+    if (!id) throw 'Cannot update user without an id';
     if(typeof(firstName)!='string') throw 'First Name should be of type: string';
     if (typeof(lastName)!='string') throw 'Last Name should be of type: string';
     if (typeof(password)!='string') throw 'Password should be of type: String';
-    if (typeof(email)!='string') throw 'Email should be of type: String';
+   // if (typeof(email)!='string') throw 'Email should be of type: String';
+   
+  // const objId = ObjectId.createFromHexString(id);
 
-    if(newEmail === '') newEmail = email;
-
-    let u = await this.getUser(email);
+    let u = await this.getUserById(id);
     if(password != '') password = await Bcrypt.hash(password, 16);
     else password = u.password;
 
@@ -161,18 +161,17 @@ async function updateUser(email,firstName,lastName,password,newEmail){
     const updateUser = {
       firstName:firstName,
       lastName:lastName,
-      email:newEmail,
       password:password
 
     };
     //  const { ObjectId } = require('mongodb');
-    // const objId = ObjectId.createFromHexString(bandId);
-    const updatedInfo = await userCollection.updateOne({ email: email }, { $set: updateUser });
+    const objId = ObjectId.createFromHexString(id);
+    const updatedInfo = await userCollection.updateOne({ _id:objId }, { $set: updateUser });
     if (updatedInfo.modifiedCount === 0) {
         throw 'could not update user successfully';
     }
 
-    return await this.getUser(email);
+    return await this.getUserById(id);
 }
 
 //The following function will add reviews to user
