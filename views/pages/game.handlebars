@@ -4,14 +4,16 @@
     <h1>{{game.nameOfGame}}</h1>
     <h2>{{avgRating}}/10</h2>
     <h2>Reviews</h2>
-    <form id='new-review'>
+    <form id='new-review' class="new-review-form">
         <label>Rating: <input type="number" id='rating' max="10" min="1"/></label>
         <br>
-        <label>Review 
-            <textarea id='review' rows="8" cols="30"></textarea>
-        </label>
-        <input type="submit" value="Submit Review!"/>
+        <label for="review">Review</label>
+        <br>
+        <textarea id='review' rows="8" cols="30"></textarea>
+        <br>
+        <button class='new-review-submit' type="submit">Submit Review!</button>
     </form>
+    <br>
     <div class="reviewRow" id="review-area">
         {{#each reviews}}
             <section class="col-quarter">
@@ -29,7 +31,7 @@
                     <form action="/games/{{../url}}/comment" method="POST">
                         <label><input type="text" name='comment' placeholder="comment..."/></label>
                         <input type="text" name='rid' value="{{this.rid}}" class='rid'/>
-                        <input type="submit" value="Submit Comment"/>
+                        <button type="submit" >Submit Comment</button>
                     </form>
                 {{/if}}
                 {{#each comments}}

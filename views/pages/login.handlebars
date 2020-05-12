@@ -3,14 +3,17 @@
 <p> {{error}} </p>
 {{/if}}
 <h2>Login</h2>
-<form id = "login-form" action = "/login" method = "post">
+<form class='loginform' id = "login-form" action = "/login" method = "post">
 <label> Username
     <input type="text" name="username" id="username">
 </label>
-
+<br>
+<br>
 <label> Password
     <input type="password" name="password" id="password">
 </label>
-<button type="submit">Login</button>
+<br>
+<br>
+<button class="login-button" type="submit">Login</button>
 </form>
-<p>Don't have an account? Sign up today! <a href="/signup">Sign Up</a></p>
+<p class='signup'>Don't have an account? Sign up today! <br><a href="/signup">Sign Up</a></p>

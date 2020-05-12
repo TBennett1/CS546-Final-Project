@@ -1,7 +1,7 @@
 {{> navbar}}
-<section>
+
+<section class='allGames'>
     {{#each game}}
-        <img src="{{gameIcon}}" class="image" alt="{{nameOfGame}}"/>
-        <h2><a href="/games/{{loud nameOfGame}}">{{nameOfGame}}</a></h2>
+        <h2> <img src="{{gameIcon}}" class="image" alt="{{nameOfGame}}"/> <a href="/games/{{loud nameOfGame}}">{{nameOfGame}}</a></h2>
     {{/each}}
 </section>
