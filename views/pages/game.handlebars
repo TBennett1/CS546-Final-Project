@@ -15,13 +15,14 @@
     <div class="reviewRow" id="review-area">
         {{#each reviews}}
             <section class="col-quarter">
-                <h4>{{this.author.firstName}} {{this.author.lastName}}</h4>
-                <h4>Rating: {{this.review.rating}}/10 </h4>
-                <h4>Review: {{this.review.userReviews}}</h4>
+                <h3>{{this.author.firstName}} {{this.author.lastName}}</h3>
+                <h3>Rating: {{this.review.rating}}/10 </h3>
+                <h3>Review: {{this.review.userReviews}}</h3>
                 <p>
-                    <button type="button" value="{{this.rid}}" id='upvote'><img class="updown" src="../up.png"/></button> <span id='up'>{{this.upvotes}}</span> <button type="button" id="downvote"> <img class="updown" src="../down.png"/></button> <span id="down">{{this.downvotes}}</span>
+                    <label for='upvote'>Upvote</label>
+                    <button type="button" value="{{this.rid}}" id='upvote'><img class="updown" src="../up.png"/></button> <span id='up'>{{this.upvotes}}</span> <label for="downvote">Downvote </label><button type="button" id="downvote"> <img class="updown" src="../down.png"/></button> <span id="down">{{this.downvotes}}</span>
                 </p>
-                <h5>Comments</h5>
+                <h4>Comments</h4>
                 {{#if ../loggedin}}
                     <form id='new-comment' action="/games/{{../url}}/comment" method="POST">
                         <label><input type="text" name='comment' placeholder="comment..."/></label>

@@ -73,6 +73,10 @@ h1{
 	font-size: 50px;
 }
 
+.col-quarter h3{
+	color: black;
+	text-align: left;
+}
 
 div > a{
 	color: black;
@@ -241,7 +245,7 @@ nav{
 	border-right: solid;
 }
 
-.profile h3{
+.profile h2{
 	text-align: left;
 	margin-left: 2%;
 }
