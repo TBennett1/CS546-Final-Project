@@ -19,5 +19,28 @@
         <script src="/public/js/userEdit.js"></script>
         <script src="/public/js/submitReview.js"></script>
         <script src="/public/js/navActive.js"></script>
+        <script>
+                let updatePostStats = {
+                    upvote: function (postID){
+                        let curr = $('#likes-count-'+postID).text();
+                        curr = parseInt(curr)+1;
+                        $('#likes-count-'+postID).text(curr.toString());
+                    },
+                    downvote: function (postID){
+                        let curr = $('#dislikes-count-'+postID).text();
+                        curr = parseInt(curr)+1;
+                        $('#dislikes-count-'+postID).text(curr.toString());
+                    }
+                };
+
+            let actOnPost = function (event) {
+                let postID = event.target.dataset.postId;
+                let action = event.target.id;
+                updatePostStats[action](postID);
+                $.post(window.location.pathname+'/'+action,{rid:postID}, function (res){
+                    console.log('Did it work?' + res.success);
+                });
+            }
+        </script>
     </body>
 </html>
