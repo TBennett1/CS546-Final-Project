@@ -16,7 +16,7 @@ async function addComment(gameId,reviewId,email,userComments){
     if(typeof(email)!='string') throw 'Email Id should be of type: string';
     if (!userComments) throw 'You must provide a comment for the review';
     if(typeof(userComments)!='string') throw 'Comments should be of valid string type';
- 
+ time=new Date();
     //Check if the game exists in the database:
     try{
         const gameCheck = await game.getGame(gameId); 
@@ -38,7 +38,8 @@ async function addComment(gameId,reviewId,email,userComments){
     const commentsCollection = await comments();
     let newComment = {
         email:email.toLowerCase(),
-        userComments:userComments
+        userComments:userComments,
+        timestamp:time
     };
 
     const insertInfo = await commentsCollection.insertOne(newComment);
