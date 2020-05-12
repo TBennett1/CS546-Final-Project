@@ -23,45 +23,4 @@
     }
 
     bindEventsToEdit(profile);
-    
-
-    // editForm.submit(function (event){
-    //     event.preventDefault();
-    //     alert('editing');
-        
-        
-    //     let newName = newNameInput.val();
-    //     let newEmail = newEmailInput.val();
-    //     let newPass = newPassInput.val();
-
-    //     console.log(newName);
-    //     console.log(newEmail);
-    //     console.log(newPass);
-
-    //     let firstName = newName.split(' ')[0];
-    //     let lastName = newName.split(' ')[1];
-
-
-    //     if(newName || newEmail || newPass){
-    //         let requestConfig = {
-    //             method: 'POST',
-    //             url: '/users/'+$(this).data('id'),
-    //             contentType: 'application/json',
-    //             data: JSON.stringify({
-    //                 firstName: firstName,
-    //                 lastName: lastName,
-    //                 email: currEmail,
-    //                 newEmail: newEmail,
-    //                 pass: newPass
-    //             })
-    //         };
-
-    //         $.ajax(requestConfig).then(function (responseMessage) {
-    //             console.log(responseMessage);
-    //         });
-
-    //     }
-    // });
-
-
 })(window.jQuery);

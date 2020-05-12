@@ -149,27 +149,28 @@ router.post('/:game/upvote', async (req, res) =>{
         return;
     }
 
-    let upvotes;
+    let flag=false;
     try{
-        upvotes = await review.upVote(req.body.rid ,req.session.email);
+        await review.upVote(req.body.rid ,req.session.email);
+        flag = true;
     }catch(e){
         console.log(e);
     }
     
-    res.json({message: upvotes});
+    res.json({success: flag});
 });
 
 router.post('/:game/downvote', async (req, res) =>{
     if(!req.session.user){
         return;
     }
-    let downvotes;
+    let flag=false;
     try{
-        downvotes = await review.downVote(req.body.rid, req.session.email);
+        await review.downVote(req.body.rid, req.session.email);
     }catch(e){
         console.log(e);
     }
-    res.json({message: downvotes});
+    res.json({sucess: flag});
 })
 
 

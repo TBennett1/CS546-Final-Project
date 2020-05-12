@@ -18,10 +18,10 @@
                 <h3>{{this.author.firstName}} {{this.author.lastName}}</h3>
                 <h3>Rating: {{this.review.rating}}/10 </h3>
                 <h3>Review: {{this.review.userReviews}}</h3>
-                <p>
-                    <label for='upvote'>Upvote</label>
-                    <button type="button" value="{{this.rid}}" id='upvote'><img class="updown" src="../up.png"/></button> <span id='up'>{{this.upvotes}}</span> <label for="downvote">Downvote </label><button type="button" id="downvote"> <img class="updown" src="../down.png"/></button> <span id="down">{{this.downvotes}}</span>
-                </p>
+                <label for='upvote'>Upvote</label>
+                <button onclick="actOnPost(event);" type="button" data-post-id="{{this.rid}}" id='upvote'><img id='upvote' data-post-id="{{this.rid}}" class="updown" src="../up.png"/></button> <span id='likes-count-{{this.rid}}'>{{this.upvotes}}</span> 
+                <label for="downvote">Downvote </label>
+                <button type="button" onclick="actOnPost(event);" data-post-id="{{this.rid}}" id="downvote"> <img id="downvote" data-post-id="{{this.rid}}" class="updown" src="../down.png"/></button> <span id="dislikes-count-{{ this.rid }}">{{this.downvotes}}</span>
                 <h4>Comments</h4>
                 {{#if ../loggedin}}
                     <form id='new-comment' action="/games/{{../url}}/comment" method="POST">
