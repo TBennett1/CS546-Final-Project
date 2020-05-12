@@ -16,6 +16,7 @@ async function addReview(gameId,email,userReviews,rating){
     if(typeof(userReviews)!='string') throw 'Reviews should be of valid string type';
     if (!rating) throw 'You must provide a rating';
     if(typeof(rating)!='number') throw "Rating should be of type number";
+    time=new Date();
     //Check if the game exists in the database:
     try{
         const gameCheck = await game.getGame(gameId); 
@@ -39,7 +40,8 @@ async function addReview(gameId,email,userReviews,rating){
         rating:rating,
         comments:[],
         upvotes:[],
-        downvotes:[]
+        downvotes:[],
+        timestamp:time
     };
     // Check if this user already reviewed this particular game:
     //await reviewsCollection.findOne({gameId:gameId,email:email.toLowerCase()})
@@ -192,12 +194,13 @@ async function downVote(reviewId,email){
   if(typeof(userReviews)!='string') throw 'Reviews should be of valid string type';
   if (!rating) throw 'You must provide a rating';
   if(typeof(rating)!='number') throw "Rating should be of type number";
- 
+ time=new Date();
   //Check if the same user who wrote the review is trying to update it
   const reviewsCollection = await reviews();
   let updateReview = {
     userReviews:userReviews,
-    rating:rating
+    rating:rating,
+      timestamp:time
   };
   //getreview and check if email id matches
   
