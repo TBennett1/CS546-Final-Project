@@ -247,10 +247,14 @@ label{
 
 .searchbar button{
 	font-size: 14pt;
+	border-radius: 0;
 }
 
 .navsearch button{
 	font-size: 14pt;
+	border-radius: 0;
+	border-style: solid;
+	border-color: #0F0F0F;
 }
 
 *{
