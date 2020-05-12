@@ -40,6 +40,7 @@ router.post("/", async (req, res) => {
           currentUserFullName = user.firstName + " " + user.lastName;
           req.session.user = currentUserFullName;
           req.session.uid = user._id;
+          req.session.email = user.email;
           req.session.AuthCookie = req.sessionID;
           return res.redirect('/');
         }

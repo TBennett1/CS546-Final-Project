@@ -1,16 +1,5 @@
 <div>
-    <nav>
-        <ul>
-            <li><a class="active" href="/">Home</a></li>
-            <li><a href="/games">Games</a></li>
-		{{#if loggedin}}
-			<li><a href='/user/{{userID}}'>{{currentUser}}</a></li>
-            <li><a href="/logout">Log Out</a></li>
-			{{else}}
-			<li><a href="/login">Sign In</a></li>
-		{{/if}}
-        </ul>
-    </nav>
+    {{> navbar}}
     <h1>Featured Games</h1>
     <div class="myRow">
         <div class="container">

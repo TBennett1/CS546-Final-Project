@@ -13,11 +13,20 @@ ul {
 	padding: 0;
 	overflow: hidden;
 	background-color: #333;
+	position: relative;
+}
+
+.navsearch{
+	float: right;
+	color: white;
+	margin-top: 30px;
+	font-size: 18pt;
+	margin-right: 5px;
 }
   
 li {
 	float: left;
-  }
+}
   
 li a {
 	display: block;
@@ -25,6 +34,9 @@ li a {
 	text-align: center;
 	padding: 14px 16px;
 	text-decoration: none;
+	font-size: 18pt;
+	margin-top: 20px;
+	margin-bottom: 20px;
 }
   
 li a:hover {
@@ -105,6 +117,18 @@ div > a:visited{
 	opacity: .6;
 }
 
+.navpic{
+	width: 94px;
+	height: 94px;
+	margin-right: 5px;
+}
+
+nav{
+	padding: 0;
+	margin-bottom: -4px;
+}
+
+
 
 .overlay {
 	position: absolute;
@@ -117,6 +141,10 @@ div > a:visited{
 	opacity: 0;
 	transition: .5s ease;
 	background-color:lightgray;
+}
+
+.rid{
+	visibility: hidden;
 }
 
 .text {

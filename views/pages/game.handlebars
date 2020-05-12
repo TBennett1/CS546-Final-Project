@@ -1,33 +1,42 @@
-<nav>
-    <ul>
-        <li><a href="/">Home</a></li>
-        <li><a class="active" href="/games">Games</a></li>
-		{{#if loggedin}}
-			<li><a href='/user/{{userID}}'>{{currentUser}}</a></li>
-            <li><a href="/logout">Log Out</a></li>
-			{{else}}
-			<li><a href="/login">Sign In</a></li>
-		{{/if}}
-    </ul>
-</nav>
+{{> navbar}}
 <section>
     <img src="../{{game.gameIcon}}" class="reviewImage"/>
     <h1>{{game.nameOfGame}}</h1>
     <h2>{{avgRating}}/10</h2>
     <h2>Reviews</h2>
-    <div class="reviewRow">
+    <form id='new-review'>
+        <label>Rating: <input type="number" id='rating' max="10" min="1"/></label>
+        <br>
+        <label>Review 
+            <textarea id='review' rows="8" cols="30"></textarea>
+        </label>
+        <input type="submit" value="Submit Review!"/>
+    </form>
+    <div class="reviewRow" id="review-area">
         {{#each reviews}}
             <section class="col-quarter">
                 <h4>{{this.author.firstName}} {{this.author.lastName}}</h4>
                 <h4>Rating: {{this.review.rating}}/10 </h4>
                 <h4>Review: {{this.review.userReviews}}</h4>
-                <p><img class="updown" src="../up.png"/> {{this.upvotes}} <img class="updown" src="../down.png"/> {{this.downvotes}}</p>
+                <p>
+                    <button type="button" value="{{this.rid}}" id='upvote'><img class="updown" src="../up.png"/></button> <span id='up'>{{this.upvotes}}</span> <button type="button" id="downvote"> <img class="updown" src="../down.png"/></button> <span id="down">{{this.downvotes}}</span>
+                </p>
                 <h5>Comments</h5>
+                {{#if ../loggedin}}
+                    <form id='new-comment' action="/games/{{../url}}/comment" method="POST">
+                        <label><input type="text" name='comment' placeholder="comment..."/></label>
+                        <input type="text" name='rid' value="{{this.rid}}" class='rid'/>
+                        <input type="submit" value="Submit Comment"/>
+                    </form>
+                {{/if}}
                 {{#each comments}}
                     <p>{{this.author.firstName}} {{this.author.lastName}}</p>
                     <p>{{this.comment}}</p>
                 {{/each}}
             </section>
         {{/each}}
+        {{#if author}}
+            {{> review}}
+        {{/if}}
     </div>
 </section>

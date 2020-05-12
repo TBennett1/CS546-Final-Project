@@ -8,36 +8,115 @@ const user = data.users;
 
 router.get('/', async (req, res)=>{
     //this is where the list of games would be displayed with the search bar at the top.
-    let allGames = await game.getAllGames();
+    let allGames;
+    try {
+        allGames = await game.getAllGames();
+    } catch (e) {
+        console.log(e);
+    }
+    let flag = false;
 
-    res.render('pages/allGames', {game: allGames});
+    if(req.session.user) flag = true;
+
+    res.render('pages/allGames', {loggedin: flag, userID: req.session.uid, currentUser: req.session.user, game: allGames});
 });
+
+router.post('/:game', async (req, res) =>{
+    if(!req.session.user){
+        return;
+    }
+    let str=req.params.game;
+    
+    console.log(req.body);
+    
+    let gameName=str.toString().replace(/\_/gi," ");
+    let newReview;
+    try{
+        newReview = await review.addReview(gameName, req.session.email, req.body.review, parseInt(req.body.rating));
+    }catch(e){
+        console.log(e);
+        return;
+    }
+    
+    console.log(newReview);
+    let usr = await user.getUser(newReview.email);
+    console.log(usr);
+    
+    
+    res.render('partials/review', {layout:null, author:usr, ...newReview});
+});
+
+router.post('/:game/comment', async (req, res)=>{
+    let str=req.params.game;
+    let gameName=str.toString().replace(/\_/gi," ");
+    let cmnt;
+
+    console.log(req.body);
+    
+
+    try {
+       cmnt = await comment.addComment(gameName,req.body.rid,req.session.email, req.body.comment);
+    } catch (e) {
+        console.log(e);
+    }
+
+    return res.redirect('/games/'+req.params.game);
+});
+
 
 router.get('/:game', async (req, res) =>{
     let flag=false;
     let reviews = [];
     let total = 0;
+    let gm;
 
     //let gm = await game.getGame(req.params.game);
     //Added these three lines to fix the href whitespace issue
     let str=req.params.game;
-   let gameName=str.toString().replace(/\_/gi," ");
-    let gm = await game.getGame(gameName);
+    let gameName=str.toString().replace(/\_/gi," ");
+    try{
+        gm = await game.getGame(gameName);
+    }catch(e){
+        console.log(e);
+    }
     //
     for (let i = 0; i < gm.reviews.length; i++){
         let rvw = {};
         const rid = gm.reviews[i];
-        let r = await review.getReview(rid);
-        let author = await user.getUser(r.email);
+        let r;
+        let author;
+        try{
+            r = await review.getReview(rid);
+        }catch(e){
+            console.log(e);
+        }
+
+        try{
+            author = await user.getUser(r.email);
+        }catch(e){
+            console.log(e);
+        }
+
         let comments = [];
 
         for (let j = 0; j < r.comments.length; j++){
             const cid = r.comments[j];
-            let c = await comment.getComment(cid);
-            let usr = await user.getUser(c.email);
+            let c, usr;
+            try {
+                c = await comment.getComment(cid);
+            } catch (e) {
+                console.log(e);
+            }
+
+            try {
+                usr = await user.getUser(c.email);
+            } catch (e) {
+               console.log(e); 
+            }
             comments.push({'author': usr, 'comment': c.userComments});
         }
         
+        rvw['rid'] = rid;
         rvw["review"] = r;
         rvw["upvotes"] = r.upvotes.length;
         rvw["downvotes"] = r.downvotes.length;
@@ -58,10 +137,41 @@ router.get('/:game', async (req, res) =>{
         loggedin: flag,
         userID: req.session.uid,
         currentUser: req.session.user,
-        game: gm, 
+        game: gm,
+        url: req.params.game, 
         reviews: reviews,
-        avgRating: total/reviews.length
+        avgRating: (total/reviews.length).toFixed(2)
     });
 });
+
+router.post('/:game/upvote', async (req, res) =>{
+    if(!req.session.user){
+        return;
+    }
+
+    let upvotes;
+    try{
+        upvotes = await review.upVote(req.body.rid ,req.session.email);
+    }catch(e){
+        console.log(e);
+    }
+    
+    res.json({message: upvotes});
+});
+
+router.post('/:game/downvote', async (req, res) =>{
+    if(!req.session.user){
+        return;
+    }
+    let downvotes;
+    try{
+        downvotes = await review.downVote(req.body.rid, req.session.email);
+    }catch(e){
+        console.log(e);
+    }
+    res.json({message: downvotes});
+})
+
+
 
 module.exports = router;

@@ -96,12 +96,12 @@ async function addCommentsToReview(reviewId,commentId){
     if(!commentId) throw 'You must provide a comment id';
     const reviewCollection = await reviews();
     const objId = ObjectId.createFromHexString(reviewId);
-    const reviewer = await reviewCollection.findOne({_id: objId});
-    if (reviewer === null) throw 'No review with that id';
+    const review = await reviewCollection.findOne({_id: objId});
+    if (review === null) throw 'No review with that id';
     const updateInfo = await reviewCollection.updateOne({_id: objId}, {$addToSet: {comments: commentId}});
     if (!updateInfo.matchedCount && !updateInfo.modifiedCount) throw 'Update failed';
 
-    return reviewer;
+    return review;
 }
   
 //Function to delete comment from review if the comment is deleted
@@ -120,6 +120,7 @@ async function upVote(reviewId,email){
     const reviewCollection = await reviews();
     const objId = ObjectId.createFromHexString(reviewId);
     const reviewer = await reviewCollection.findOne({_id: objId});
+    
     for(let e in reviewer.upvotes){
         if(email ==reviewer.upvotes[e]){
             //So the user wants to undo his previous upvote
