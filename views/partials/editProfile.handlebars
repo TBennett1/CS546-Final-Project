@@ -1,6 +1,10 @@
-<form id='editForm'  method="POST">
-    <label>New Name: <input name='newName' type="text"/></label>
-    
-    <label>New Password: <input name='newPassword' type="password"/></label>
-    <input type="submit" value="Update"/>
+<form id='editForm' method="POST" enctype="multipart/form-data">
+    <label>New Name: <input name='newName' type="text" /></label>
+    <label>New Password: <input name='newPassword' type="password" /></label>
+    <label>New profile picture:
+        <form method="post" enctype="multipart/form-data" action="/upload">
+            <input type="file" name="file">
+            <input type="submit" value="Update" />
+        </form>
+    </label>
 </form>
