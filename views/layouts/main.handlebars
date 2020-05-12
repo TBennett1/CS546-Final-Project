@@ -36,10 +36,10 @@
             let actOnPost = function (event) {
                 let postID = event.target.dataset.postId;
                 let action = event.target.className;
-                alert(action);
-                updatePostStats[action](postID);
                 $.post(window.location.pathname+'/'+action,{rid:postID}, function (res){
-                    console.log('Did it work?' + res.success);
+                    if(!res.success) return;
+                    else updatePostStats[action](postID);
+                    location.reload();
                 });
             }
         </script>

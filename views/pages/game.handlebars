@@ -22,7 +22,7 @@
                 <button onclick="actOnPost(event);" type="button" data-post-id="{{this.rid}}" class='upvote'><img data-post-id="{{this.rid}}" class="upvote" src="../up.png" alt="upvote"/></button> <span id='likes-count-{{this.rid}}'>{{this.upvotes}}</span> 
                 </label>
                 <label>Downvote 
-                <button type="button" onclick="actOnPost(event);" data-post-id="{{this.rid}}" class="downvote"> <img data-post-id="{{this.rid}}" class="downvote" src="../down.png" alt="downvote"/></button> <span id="dislikes-count-{{ this.rid }}">{{this.downvotes}}</span>
+                <button type="button" onclick="actOnPost(event);" data-post-id="{{this.rid}}" class="downvote"><img data-post-id="{{this.rid}}" class="downvote" src="../down.png" alt="downvote"/></button> <span id="dislikes-count-{{ this.rid }}">{{this.downvotes}}</span>
                 </label>
                 <h4>Comments</h4>
                 {{#if ../loggedin}}

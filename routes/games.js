@@ -131,7 +131,11 @@ router.get('/:game', async (req, res) =>{
 
     if(req.session.user){
         flag=true;
-    }    
+    }
+    
+    let avgRating = (total/reviews.length);
+    
+    if(isNaN(avgRating)) avgRating = 0;
     
     res.render('pages/game', {
         loggedin: flag,
@@ -140,7 +144,7 @@ router.get('/:game', async (req, res) =>{
         game: gm,
         url: req.params.game, 
         reviews: reviews,
-        avgRating: (total/reviews.length).toFixed(2)
+        avgRating: avgRating.toFixed(2)
     });
 });
 
@@ -167,10 +171,11 @@ router.post('/:game/downvote', async (req, res) =>{
     let flag=false;
     try{
         await review.downVote(req.body.rid, req.session.email);
+        flag = true;
     }catch(e){
         console.log(e);
     }
-    res.json({sucess: flag});
+    res.json({success: flag});
 })
 
 

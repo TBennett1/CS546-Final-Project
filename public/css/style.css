@@ -1,10 +1,10 @@
 body{
-	background-color: beige;
+	background-color: #616163;
 	padding-left: 2%;
 	padding-right: 2%;
 }
 main{
-	background-color: ghostwhite;
+	background-color: white;
 }
 
 ul {
@@ -40,20 +40,25 @@ li a {
 }
   
 li a:hover {
-	background-color: maroon;
+	background-color: #9FC490;
+	color: #0F0F0F;
 }
 
 .header{
 	width: 100%;
 	text-align: center;
 	display: block;
-	color: rgb(0, 87, 87);
+	color: #44FFD2;
 	padding: 1%;
+}
+
+.header h1{
+	color: #44FFD2;
 }
 
 a{
 	text-decoration: none;
-	color: rgb(0, 87, 87);
+	color: #0F0F0F;
 }
 
 article{
@@ -64,12 +69,12 @@ article{
 
 h2,h3{
 	text-align: center;
-	color: rgb(0, 87, 87);
+	color: #0F0F0F;
 }
 
 h1{
 	text-align: center;
-	color: rgb(0, 87, 87);
+	color: #0F0F0F;
 	font-size: 50px;
 }
 
@@ -98,7 +103,8 @@ div > a:visited{
 }
 
 .active {
-	background-color: maroon;
+	background-color: #9FC490;
+	color: #0F0F0F;
 }
 
 .game{
@@ -168,7 +174,7 @@ nav{
 }
 
 .searchbar label{
-	color: rgb(0, 87, 87);
+	color: #0F0F0F;
 	font-size: 20px;
 	font-weight: bold;
 }
