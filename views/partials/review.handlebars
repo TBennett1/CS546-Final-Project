@@ -1,0 +1,13 @@
+<section class="col-quarter">
+    <h4>{{author.firstName}} {{author.lastName}}</h4>
+    <h4>Rating: {{rating}}/10 </h4>
+    <h4>Review: {{userReviews}}</h4>
+    <p>
+        <button type="button" id='upvote'><img class="updown" src="../up.png"/></button> <span id='up'>{{this.upvotes}}</span> <button type="button" id="downvote"> <img class="updown" src="../down.png"/></button> <span id="down">{{this.downvotes}}</span>
+    </p>
+    <h5>Comments</h5>
+    {{#each comments}}
+        <p>{{this.author.firstName}} {{this.author.lastName}}</p>
+        <p>{{this.comment}}</p>
+    {{/each}}
+</section>

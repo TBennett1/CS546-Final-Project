@@ -58,8 +58,8 @@ async function addComment(gameId,reviewId,email,userComments){
 async function getComment(id){
     if (!id) throw 'You must provide an id to search for';
     const commentCollection = await comments();
-    const objId = ObjectId.createFromHexString(id);
-    const commenter = await commentCollection.findOne({_id: objId});
+    if(typeof id === 'string') id = ObjectId.createFromHexString(id);
+    const commenter = await commentCollection.findOne({_id: id});
     if (commenter === null) throw 'No comment with that id';
     return commenter;
 }

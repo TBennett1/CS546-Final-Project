@@ -1,0 +1,20 @@
+<nav >
+    <ul class='nav'>
+        <li><img class='navpic' src="../4.jpg"/></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/games">Games</a></li>
+		{{#if loggedin}}
+			<li ><a href='/user/{{userID}}'>{{currentUser}}</a></li>
+            <li ><a href="/logout">Log Out</a></li>
+			{{else}}
+			<li ><a href="/login">Sign In</a></li>
+		{{/if}}
+        <li class="navsearch">
+            <form method="POST" action="/searchresults">
+                <label><input type="text" placeholder="Search..." name="text-to-test"/></label>
+                <button type="submit">Search</button>
+            </form>
+        </li>
+    </ul>
+
+</nav>
