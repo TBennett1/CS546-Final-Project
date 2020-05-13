@@ -39,7 +39,7 @@ router.post('/', async (req, res) => {
         let gameResultHandleBarInput = [];
         console.log("Checkpoint 3");
         for (let i=0; i<gameSearchResult.length; i++) {
-            gameResultHandleBarInput.push({nameURL: gameSearchResult[i].nameOfGame.toLowerCase().trim().replace(/[^a-zA-Z 0-9]+/g,'').replace(/\s/g, ''), fullName: gameSearchResult[i].nameOfGame, gamePhoto: gameSearchResult[i].gameIcon});
+            gameResultHandleBarInput.push({nameURL: gameSearchResult[i].nameOfGame.trim().replace(/[^a-zA-Z 0-9]+/g,'').replace(/\s/g, '_'), fullName: gameSearchResult[i].nameOfGame, gamePhoto: gameSearchResult[i].gameIcon});
             console.log("Checkpoint 4");
         }
         console.log("Checkpoint 5");

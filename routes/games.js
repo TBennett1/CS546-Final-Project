@@ -96,6 +96,7 @@ router.get('/:game', async (req, res) =>{
         gm = await game.getGame(gameName);
     }catch(e){
         console.log(e);
+        return res.sendStatus('404');
     }
     //
     for (let i = 0; i < gm.reviews.length; i++){
@@ -108,12 +109,14 @@ router.get('/:game', async (req, res) =>{
             r = await review.getReview(rid);
         }catch(e){
             console.log(e);
+            return res.sendStatus('404');
         }
 
         try{
             author = await user.getUser(r.email);
         }catch(e){
             console.log(e);
+            return res.sendStatus('404');
         }
 
         if(req.session.user){
@@ -130,12 +133,14 @@ router.get('/:game', async (req, res) =>{
                 c = await comment.getComment(cid);
             } catch (e) {
                 console.log(e);
+                return res.sendStatus('404');
             }
 
             try {
                 usr = await user.getUser(c.email);
             } catch (e) {
-               console.log(e); 
+               console.log(e);
+               return res.sendStatus('404');
             }
             comments.push({'author': usr, 'comment': c.userComments});
         }
