@@ -1,0 +1,17 @@
+{{> navbar}}
+<h2 id="hReview"> Hey Gamer! Check out our most helpful reviews!</h2>
+    <article class="highestRated">
+      
+    <section class="upvote" >
+      {{#each review}}
+    <img src="{{rem gameId}}.jpg" class="image" alt="{{gameId}}"/> <h3><a href="/games/{{loud gameId}}" class="gameLink">{{gameId}}</a></h3>
+        <h4>  Reviews: {{userReviews}}
+       Rating: {{rating}}
+       Upvotes:{{upvotes.length}}
+       Downvotes:{{downvotes.length}}</h4>
+       <h5> Time Reviewed: {{timestamp}}</h5>
+    {{/each}}
+  
+    </section>
+
+</article>
