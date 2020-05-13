@@ -6,6 +6,7 @@ const reviewData = data.reviews;
 const multer = require('multer');
 const fs = require('fs');
 const path = require("path");
+const xss = require('xss');
 
 const handleError = (err, res) => {
     res
@@ -38,48 +39,58 @@ const upload = multer({
 
 router.post('/:id', upload.single("file" /* name attribute of <file> element in your form */), async (req, res) => {
     const data = req.body;
-    let firstName = data.newName.split(' ')[0];
-    let lastName = data.newName.split(' ')[1];
+    let firstName = xss(data.firstName);
+    let lastName = xss(data.lastName);
+    if(req.file){
+        try {
+            const tempPath = req.file.path;
+            console.log("Checkpoint 2");
+            const currentUser = await userData.getUserById(req.session.uid);
+            console.log(currentUser);
+            console.log(currentUser.email);
+            const newFileName = currentUser.email.replace(/[^a-zA-Z0-9]/, "").replace(".", "") + "ProfilePicture.png"
+            const targetPath = path.join(__dirname, "../images/" + newFileName);
+            console.log("Checkpoint 3");
+            console.log(path.extname(req.file.originalname).toLowerCase());
+            if (path.extname(req.file.originalname).toLowerCase() === ".png" || path.extname(req.file.originalname).toLowerCase() === ".jpg") {
+                console.log("Checkpoint 4");
+                fs.rename(tempPath, targetPath, err => {
+                    console.log("Checkpoint 5");
+                    if (err) {
+                        console.log(err);
+                        return handleError(err, res);
+                    }
+                    console.log("Checkpoint 6");
+                    //return res.redirect('/user/' + req.session.uid);
+                });
+            }
+            else {
+                fs.unlink(tempPath, err => {
+                    console.log("Checkpoint 7");
+                    if (err) {
+                        console.log(err);
+                        return handleError(err, res);
+                    }
+                    console.log("Checkpoint 8");
+                    console.log("You messed up bro");
+                    return res.status(401).render('pages/user', { error: true, etext: "Only .png & .jpg files are allowed!" });
+                    
+                });
+            }
+            
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
     try {
-        const tempPath = req.file.path;
-        console.log("Checkpoint 2");
-        const currentUser = await userData.getUserById(req.session.uid);
-        console.log(currentUser);
-        console.log(currentUser.email);
-        const newFileName = currentUser.email.replace(/[^a-zA-Z0-9]/, "").replace(".", "") + "ProfilePicture.png"
-        const targetPath = path.join(__dirname, "../images/" + newFileName);
-        console.log("Checkpoint 3");
-        console.log(path.extname(req.file.originalname).toLowerCase());
-        if (path.extname(req.file.originalname).toLowerCase() === ".png" || path.extname(req.file.originalname).toLowerCase() === ".jpg") {
-            console.log("Checkpoint 4");
-            fs.rename(tempPath, targetPath, err => {
-                console.log("Checkpoint 5");
-                if (err) {
-                    console.log(err);
-                    return handleError(err, res);
-                }
-                console.log("Checkpoint 6");
-                //return res.redirect('/user/' + req.session.uid);
-            });
-        }
-        else {
-            fs.unlink(tempPath, err => {
-                console.log("Checkpoint 7");
-                if (err) {
-                    console.log(err);
-                    return handleError(err, res);
-                }
-                console.log("Checkpoint 8");
-                res.status(401).render('pages/user', { error: true, etext: "Only .png & .jpg files are allowed!" });
-                console.log("You messed up bro");
-            });
-        }
         const updatedUser = await userData.updateUser(req.session.uid, firstName, lastName, req.body.newPassword);
-        return res.redirect('/user/' + req.session.uid);
-    }
-    catch (e) {
+    } catch (e) {
         console.log(e);
+        return res.status(500).render('pages/user', { error: true, etext: e});
     }
+    
+    return res.redirect('/user/' + req.session.uid);
 });
 
 
