@@ -187,6 +187,7 @@ async function addReviewsToUser(email, reviewId) {
 async function addCommentsToUser(email, commentId) {
     if (!email) throw 'You must provide an email id to comment';
     if (!commentId) throw 'You must provide a comment id';
+    email=email.toLowerCase();
     const userCollection = await users();
     const objId = ObjectId.createFromHexString(commentId);
     const userComment = await userCollection.findOne({ email: email });
