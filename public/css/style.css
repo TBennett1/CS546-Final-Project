@@ -78,6 +78,33 @@ h1{
 	font-size: 50px;
 }
 
+#hReview{
+	color: maroon;
+	text-align: center;
+	font-weight: 100;
+}
+
+.highestRated{
+	font-size: larger;
+	font-style: italic;
+	background-color:bisque;
+}
+
+h4{
+	text-align: center;
+	font-style: normal;
+	color:brown;
+}
+
+.gameLink{
+	color:navy;
+}
+.gameLink:hover{
+	color:purple;
+	font-style: oblique;
+}
+
+
 .col-quarter h3{
 	color: black;
 	text-align: left;
