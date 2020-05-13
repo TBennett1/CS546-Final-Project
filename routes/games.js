@@ -158,6 +158,8 @@ router.get('/:game', async (req, res) =>{
         return (b.upvotes-b.downvotes) - (a.upvotes-a.downvotes);
     });
 
+    if(reviews.length > 0) reviews[0]["helpful"] = "*Most Helpful Review*";
+
     for(let i = 0; i < reviews.length; i++){
         total += reviews[i].review.rating;
     }

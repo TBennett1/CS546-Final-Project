@@ -129,6 +129,12 @@ div > a:visited{
     text-align: center;
 }
 
+.helpful{
+	font-weight: bold;
+	text-align: center;
+	background-color: yellow;
+}
+
 .container {
 	position: relative;
 	width: 50%;
