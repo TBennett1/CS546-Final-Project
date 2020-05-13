@@ -65,6 +65,10 @@ Handlebars.registerHelper('loud', function (aString) {
   return aString.replace(/\s/gi,"_");
 });
 //Reference: https://handlebarsjs.com/examples/helper-simple.html
+//Helper function to remove whitespaces from img tag
+Handlebars.registerHelper('rem',function(aIcon){
+  return aIcon.replace(/\s/gi,'');
+});
 
 configRoutes(app);
 
