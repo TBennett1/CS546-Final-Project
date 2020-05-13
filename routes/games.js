@@ -119,10 +119,9 @@ router.get('/:game', async (req, res) =>{
             return res.sendStatus('404');
         }
 
-        if(req.session.user){
-            flag=true;
-            if(req.session.email === author.email) canEdit = true;
-        }
+
+        if(req.session.email === author.email) canEdit = true;
+
 
         let comments = [];
 
@@ -168,6 +167,10 @@ router.get('/:game', async (req, res) =>{
     
     if(isNaN(avgRating)) avgRating = 0;
     
+    if(req.session.user){
+        flag=true;
+    }
+
     res.render('pages/game', {
         loggedin: flag,
         userID: req.session.uid,

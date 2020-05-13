@@ -139,6 +139,12 @@ div > a:visited{
 	margin: 10px;
 }
 
+@media (max-width: 1600px){
+	.allGames .container{
+		width: 31%;
+	}
+}
+
 .container:hover .overlay {
 	opacity: .6;
 }
