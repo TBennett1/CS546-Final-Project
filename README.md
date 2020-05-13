@@ -31,7 +31,8 @@ Once you are logged out, you have to login using your username and password.
 You can search games by keyword through search bar.
 
 GAME ON is very secure. We have used hashed passwords to seed the database, so you can use these credentials to log in:
-Never Ever Store your Plaintext pwds anywhere in your code
+
+
 User 1:janedoe@gmail.com
 Password:IvjcMwcCv
 Hashed Password: $2a$16$3eiILObl9M5qN8CzPYArau4p5SFyAjNexctMDlamH1jxVgBPmsIdi
