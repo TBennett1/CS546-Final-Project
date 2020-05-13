@@ -1,0 +1,17 @@
+{{> navbar}}
+
+<h2>Edit Review</h2>
+{{#if error}}
+    <h3>{{etext}}</h3>
+{{/if}}
+<form class='new-review-form' id='editReview' action='/games/{{nameOfGame}}/{{rid}}/editReview' method="POST">
+    <label>New Rating: <input type='number' name='newRating' max="10" min="1"/></label>
+    <br>
+    <br>
+    <label>New Review: <br><textarea name='newReview' rows="8" cols="30"></textarea></label>
+    <br>
+    <br>
+    <button class="new-review-submit" type="submit">Submit New Review!</button>
+    <br>
+    <br>
+</form> 
