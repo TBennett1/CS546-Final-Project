@@ -5,6 +5,8 @@ const user=require("../data/users");
 const users=mongoCollections.users;
 const game=require("../data/games");
 const games=mongoCollections.games;
+var Filter = require('bad-words'),
+    filter = new Filter();
 //const uuid = require('uuid');
 //addReview function adds a review to a game
 async function addReview(gameId,email,userReviews,rating){
@@ -14,6 +16,8 @@ async function addReview(gameId,email,userReviews,rating){
     if(typeof(email)!='string') throw 'Email Id should be of type: string';
     if (!userReviews) throw 'You must provide a review for the game';
     if(typeof(userReviews)!='string') throw 'Reviews should be of valid string type';
+    //Replaces bad words with *
+    userReviews=filter.clean(userReviews);
     if (!rating) throw 'You must provide a rating';
     if(typeof(rating)!='number') throw "Rating should be of type number";
     time=new Date();
@@ -192,6 +196,8 @@ async function downVote(reviewId,email){
     if(typeof(email)!='string') throw 'Email Id should be of type: string';
   if (!userReviews) throw 'You must provide a review for the game';
   if(typeof(userReviews)!='string') throw 'Reviews should be of valid string type';
+      //Relace bad words with *
+      userReviews=filter.clean(userReviews);
   if (!rating) throw 'You must provide a rating';
   if(typeof(rating)!='number') throw "Rating should be of type number";
  time=new Date();
