@@ -218,6 +218,10 @@ async function downVote(reviewId,email){
 
   return await this.getReview(reviewId);
 }
- 
+ async function sortReview(){
+    const reviewCollection = await reviews();
+    const reviewList = await reviewCollection.find({}).sort({ upvotes: -1 }).toArray();
+    return reviewList;
+}
 
-module.exports={addReview,getReview,getAllReviewsOfGame,addCommentsToReview,deleteCommentFromReviews,upVote,downVote,updateReview}
+module.exports={addReview,getReview,getAllReviewsOfGame,addCommentsToReview,deleteCommentFromReviews,upVote,downVote,updateReview,sortReview}
