@@ -134,6 +134,11 @@ div > a:visited{
 	width: 50%;
 }
 
+.allGames .container{
+	width: 32%;
+	margin: 10px;
+}
+
 .container:hover .overlay {
 	opacity: .6;
 }
@@ -201,7 +206,6 @@ label{
 .allGames{
 	display: flex;
 	flex-wrap: wrap;
-	margin: 10px;
 }
 
 .allGames img{

@@ -6,7 +6,6 @@ const gameRoute = require('./games');
 const userRoute = require('./user');
 const signUp = require('./signup');
 const signUpSuccess = require('./signupsuccess');
-const highestRated=require('./highestRated');
 
 const constructorMethod = (app) => {
     app.use('/', homeRoute);
@@ -17,7 +16,6 @@ const constructorMethod = (app) => {
     app.use('/user', userRoute);
     app.use('/signup', signUp);
     app.use('/signupsuccess', signUpSuccess);
-    app.use('/highestRated',highestRated);
 
     app.use('*', (req, res) => {
         console.log('redirecting...');

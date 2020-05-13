@@ -224,19 +224,6 @@ async function downVote(reviewId,email){
 
   return await this.getReview(reviewId);
 }
-//
-//This function sorts reviews based on most helpful reviews.ie. upvotes minus downvotes
- async function sortReview(){
-    const reviewCollection = await reviews();
-   const reviewList = await reviewCollection.find({}).toArray();
-   var r,count;
-  for(r in reviewList){
-      reviewList[r].count=reviewList[r].upvotes.length-reviewList[r].downvotes.length;
-     let objId= reviewList[r]._id;
-      const updatedInfo = await reviewCollection.updateOne({_id:objId}, {$set: {count:reviewList[r].count}});
-  }
-  const res = await reviewCollection.find({}).sort({ count: -1 }).toArray();
-return res;  
-}
 
-module.exports={addReview,getReview,getAllReviewsOfGame,addCommentsToReview,deleteCommentFromReviews,upVote,downVote,updateReview,sortReview}
+
+module.exports={addReview,getReview,getAllReviewsOfGame,addCommentsToReview,deleteCommentFromReviews,upVote,downVote,updateReview}

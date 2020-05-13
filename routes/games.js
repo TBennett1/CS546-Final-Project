@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const data = require('../data');
+const xss = require('xss');
 const game = data.games;
 const review = data.reviews;
 const comment = data.comments;
@@ -49,7 +50,7 @@ router.post('/:game/:rid/comment', async (req, res)=>{
     
 
     try {
-       cmnt = await comment.addComment(gameName,req.body.rid,req.session.email, req.body.comment);
+       cmnt = await comment.addComment(gameName,req.body.rid,req.session.email, xss(req.body.comment));
     } catch (e) {
         console.log(e);
     }
@@ -71,12 +72,12 @@ router.post('/:game/:rid/editReview', async (req,res)=>{
     let gameName=str.toString().replace(/\_/gi," ");
     if(data.newRating && data.newReview){
         try {
-            await review.updateReview(req.params.rid,req.session.email,data.newReview, parseInt(data.newRating));
+            await review.updateReview(req.params.rid,req.session.email, data.newReview, parseInt(data.newRating));
         } catch (e) {
-            return res.render('pages/editReview', {error:true, etext:"could not update review", nameOfGame: gameName, rid:req.params.rid});
+            return res.render('pages/editReview', {error:true, etext:"could not update review", nameOfGame: xss(gameName), rid:req.params.rid});
         }
     }else{
-        return res.render('pages/editReview',{error:true, etext:"Enter input", nameOfGame: gameName, rid: rid});
+        return res.render('pages/editReview',{error:true, etext:"Enter input", nameOfGame: xss(gameName), rid: rid});
     }
     return res.redirect('/games/'+req.params.game);
 });
@@ -149,6 +150,10 @@ router.get('/:game', async (req, res) =>{
         reviews.push(rvw);
     }
 
+    reviews.sort(function(a,b){
+        return (b.upvotes-b.downvotes) - (a.upvotes-a.downvotes);
+    });
+
     for(let i = 0; i < reviews.length; i++){
         total += reviews[i].review.rating;
     }
@@ -176,7 +181,7 @@ router.post('/:game/upvote', async (req, res) =>{
 
     let flag=false;
     try{
-        await review.upVote(req.body.rid ,req.session.email);
+        await review.upVote(xss(req.body.rid) , req.session.email);
         flag = true;
     }catch(e){
         console.log(e);

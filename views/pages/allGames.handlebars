@@ -2,6 +2,13 @@
 
 <section class='allGames'>
     {{#each game}}
-        <h2> <img src="{{gameIcon}}" class="image" alt="{{nameOfGame}}"/> <a href="/games/{{loud nameOfGame}}">{{nameOfGame}}</a></h2>
+        <div class='container'>
+            <a href="/games/{{loud nameOfGame}}">
+                <img src="{{gameIcon}}" class="image" alt="{{nameOfGame}}"/>
+                <div class="overlay">
+                    <div class="text">{{nameOfGame}}</div>
+                </div>
+            </a>
+        </div>
     {{/each}}
 </section>
