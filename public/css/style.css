@@ -149,6 +149,16 @@ div > a:visited{
 	margin-right: 5px;
 }
 
+.signup-reqs{
+	color: #0F0F0F;
+	list-style-type: circle;
+	background-color: white;
+}
+
+.signup-reqs li{
+	float: none;
+}
+
 nav{
 	padding: 0;
 	margin-bottom: -4px;

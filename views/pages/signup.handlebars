@@ -20,11 +20,13 @@
     </label>
     <br>
     <br>
-    <label> Please enter a password:
-        <input type="password" name="password1" id="password1">
+    <label> Please enter a password: 
+        <input type="password" name="password1" id="password1" minlength="5" required maxlength="15" required>
+        <ul class='signup-reqs'>
+            <li>Minimum of 8 character</li>
+            <li>Maximum of 15 characters</li>
+        </ul>
     </label>
-    <br>
-    <br>
     <label> Confirm password:
         <input type="password" name="password2" id="password2">
     </label>
