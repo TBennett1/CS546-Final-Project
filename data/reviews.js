@@ -41,7 +41,7 @@ async function addReview(gameId,email,userReviews,rating){
         gameId:gameId,
         email:email.toLowerCase(),
         userReviews:userReviews,
-        rating:rating,
+        rating:parseInt(rating),
         comments:[],
         upvotes:[],
         downvotes:[],
@@ -205,7 +205,7 @@ async function downVote(reviewId,email){
   const reviewsCollection = await reviews();
   let updateReview = {
     userReviews:userReviews,
-    rating:rating,
+    rating:parseInt(rating),
       timestamp:time
   };
   //getreview and check if email id matches
