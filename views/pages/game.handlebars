@@ -26,6 +26,8 @@
                     </form>
                     <br>
                 {{/if}}
+                <div class="sharethis-inline-share-buttons"></div>
+                <br>
                 <label>Upvote
                 <button onclick="actOnPost(event);" type="button" data-post-id="{{this.rid}}" class='upvote'><img data-post-id="{{this.rid}}" class="upvote" src="../up.png" alt="upvote"/></button> <span id='likes-count-{{this.rid}}'>{{this.upvotes}}</span> 
                 </label>
