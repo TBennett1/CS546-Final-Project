@@ -1,0 +1,15 @@
+{{> navbar}}
+<h2 id="hReview"> Hey Gamer! Check out our most rated reviews!</h2>
+    <article class="highestRated">
+        {{#if true}}
+    <section class="upvote" >
+      {{#each review}}
+    <h3><a href="/games/{{loud gameId}}" class="gameLink">{{gameId}}</a></h3>
+        <h4> <p> Reviews: {{userReviews}}</p>
+       <p>Rating: {{rating}}</p>
+       <p>Upvotes:{{upvotes.length}}</p>
+       <p>Downvotes:{{downvotes.length}}</p></h4>
+    {{/each}}
+  {{/if}}
+</article>
+
