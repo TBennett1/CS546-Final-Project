@@ -7,7 +7,8 @@ const game=require("../data/games");
 const games=mongoCollections.games;
 const review=require("../data/reviews");
 const reviews = mongoCollections.reviews;
-
+var Filter = require('bad-words'),
+    filter = new Filter();
 //addComment function adds a comment to a review
 async function addComment(gameId,reviewId,email,userComments){
     if (!reviewId) throw 'You must provide a review id to comment on';
@@ -16,6 +17,8 @@ async function addComment(gameId,reviewId,email,userComments){
     if(typeof(email)!='string') throw 'Email Id should be of type: string';
     if (!userComments) throw 'You must provide a comment for the review';
     if(typeof(userComments)!='string') throw 'Comments should be of valid string type';
+    //Replaces bad words by *
+    userComments=filter.clean(userComments);
  time=new Date();
     //Check if the game exists in the database:
     try{
