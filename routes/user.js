@@ -84,7 +84,9 @@ router.post('/:id', upload.single("file" /* name attribute of <file> element in 
         }
     }
     try {
-        const updatedUser = await userData.updateUser(req.session.uid, firstName, lastName, req.body.newPassword);
+        if(firstName || lastName || req.body.newPassword){
+            const updatedUser = await userData.updateUser(req.session.uid, firstName, lastName, req.body.newPassword);
+        }
     } catch (e) {
         console.log(e);
         return res.status(500).render('pages/user', { error: true, etext: e});

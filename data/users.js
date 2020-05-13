@@ -150,11 +150,40 @@ async function updateUser(id,firstName,lastName,password){
     if(typeof(firstName)!='string') throw 'First Name should be of type: string';
     if (typeof(lastName)!='string') throw 'Last Name should be of type: string';
     if (typeof(password)!='string') throw 'Password should be of type: String';
-    if (password.length > 20) throw 'Length of password should be less than 20 characters';
-     if (password.length < 7) throw 'Length of password should be more than 7 characters';
+    if(password){
+        if (password.length > 20) throw 'Length of password should be less than 20 characters';
+        if (password.length < 7) throw 'Length of password should be more than 7 characters';
+    }
    // if (typeof(email)!='string') throw 'Email should be of type: String';
    
   // const objId = ObjectId.createFromHexString(id);
+
+    if((!firstName && !lastName) && password){
+        try {
+            let user = await this.getUserById(id);
+            firstName = user.firstName;
+            lastName = user.lastName;
+        } catch (e) {
+            console.log(e);
+            return;
+        }
+    }else if(!firstName){
+        try {
+            let user = await this.getUserById(id);
+            firstName = user.firstName;
+        } catch (e) {
+            console.log(e);
+            return;
+        }
+    }else if(!lastName){
+        try {
+            let user = await this.getUserById(id);
+            lastName = user.lastName;
+        } catch (e) {
+            console.log(e);
+            return;
+        }
+    }
 
     let u = await this.getUserById(id);
     if(password != '') password = await Bcrypt.hash(password, 16);
@@ -167,6 +196,8 @@ async function updateUser(id,firstName,lastName,password){
       password:password
 
     };
+    console.log(updateUser);
+    
     //  const { ObjectId } = require('mongodb');
     const objId = ObjectId.createFromHexString(id);
     const updatedInfo = await userCollection.updateOne({ _id:objId }, { $set: updateUser });
