@@ -27,8 +27,6 @@ router.post('/:game', async (req, res) =>{
     }
     let str=req.params.game;
     
-    console.log(req.body);
-    
     let gameName=str.toString().replace(/\_/gi," ");
     let newReview;
     try{
@@ -38,20 +36,16 @@ router.post('/:game', async (req, res) =>{
         return;
     }
     
-    console.log(newReview);
     let usr = await user.getUser(newReview.email);
-    console.log(usr);
     
     
     res.render('partials/review', {layout:null, author:usr, ...newReview});
 });
 
-router.post('/:game/comment', async (req, res)=>{
+router.post('/:game/:rid/comment', async (req, res)=>{
     let str=req.params.game;
     let gameName=str.toString().replace(/\_/gi," ");
     let cmnt;
-
-    console.log(req.body);
     
 
     try {
@@ -63,6 +57,29 @@ router.post('/:game/comment', async (req, res)=>{
     return res.redirect('/games/'+req.params.game);
 });
 
+router.get('/:game/:rid/editReview', async (req,res)=>{
+    if(!req.session.user){
+        return res.redirect('/');
+    }
+    res.render('pages/editReview', {error:false, etext:"", loggedin: true, currentUser: req.session.user, nameOfGame: req.params.game, rid: req.params.rid});
+});
+
+
+router.post('/:game/:rid/editReview', async (req,res)=>{
+    const data = req.body;
+    let str=req.params.game;
+    let gameName=str.toString().replace(/\_/gi," ");
+    if(data.newRating && data.newReview){
+        try {
+            await review.updateReview(req.params.rid,req.session.email,data.newReview, parseInt(data.newRating));
+        } catch (e) {
+            return res.render('pages/editReview', {error:true, etext:"could not update review", nameOfGame: gameName, rid:req.params.rid});
+        }
+    }else{
+        return res.render('pages/editReview',{error:true, etext:"Enter input", nameOfGame: gameName, rid: rid});
+    }
+    return res.redirect('/games/'+req.params.game);
+});
 
 router.get('/:game', async (req, res) =>{
     let flag=false;
@@ -85,6 +102,7 @@ router.get('/:game', async (req, res) =>{
         const rid = gm.reviews[i];
         let r;
         let author;
+        let canEdit = false;
         try{
             r = await review.getReview(rid);
         }catch(e){
@@ -95,6 +113,11 @@ router.get('/:game', async (req, res) =>{
             author = await user.getUser(r.email);
         }catch(e){
             console.log(e);
+        }
+
+        if(req.session.user){
+            flag=true;
+            if(req.session.email === author.email) canEdit = true;
         }
 
         let comments = [];
@@ -121,6 +144,7 @@ router.get('/:game', async (req, res) =>{
         rvw["upvotes"] = r.upvotes.length;
         rvw["downvotes"] = r.downvotes.length;
         rvw["author"] = author;
+        rvw["canEdit"] = canEdit;
         rvw["comments"] = comments;
         reviews.push(rvw);
     }
@@ -128,10 +152,7 @@ router.get('/:game', async (req, res) =>{
     for(let i = 0; i < reviews.length; i++){
         total += reviews[i].review.rating;
     }
-
-    if(req.session.user){
-        flag=true;
-    }
+    
     
     let avgRating = (total/reviews.length);
     

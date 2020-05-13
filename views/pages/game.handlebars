@@ -20,6 +20,12 @@
                 <h3>{{this.author.firstName}} {{this.author.lastName}}</h3>
                 <h3>Rating: {{this.review.rating}}/10 </h3>
                 <h3>Review: {{this.review.userReviews}}</h3>
+                {{#if this.canEdit}}
+                    <form action="/games/{{../url}}/{{this.rid}}/editReview" method="GET">
+                        <button type="submit">Edit Review</button>
+                    </form>
+                    <br>
+                {{/if}}
                 <label>Upvote
                 <button onclick="actOnPost(event);" type="button" data-post-id="{{this.rid}}" class='upvote'><img data-post-id="{{this.rid}}" class="upvote" src="../up.png" alt="upvote"/></button> <span id='likes-count-{{this.rid}}'>{{this.upvotes}}</span> 
                 </label>
