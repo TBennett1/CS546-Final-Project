@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const userData = require('../data/users');
+const xss = require('xss');
 
 router.get('/', async (req, res) => {
   res.render('pages/login');
@@ -9,13 +10,13 @@ router.get('/', async (req, res) => {
 
 router.post("/", async (req, res) => {
   const data = req.body;
-  if (!data || !data.username || !data.password) {
+  if (!data || !xss(data.username) || !xss(data.password)) {
     res.status(401).render('pages/login', { error: true, etext: "Invalid Username/Password" });
     console.log("You messed up bro");
     return;
   }
 
-  data.username = data.username.toLowerCase();
+  data.username = xss(data.username.toLowerCase());
   try {
     let success = false;
     console.log("Checkpoint 1");
@@ -27,7 +28,7 @@ router.post("/", async (req, res) => {
         console.log("Checkpoint 3");
         try {
           console.log(user.password);
-          success = await bcrypt.compare(data.password, user.password);//Change to pull from database
+          success = await bcrypt.compare(xss(data.password), user.password);//Change to pull from database
         }
         catch (e) {
           res.status(401).render('pages/login', { error: true, etext: "Invalid Username/Password" });
@@ -61,7 +62,7 @@ router.post("/", async (req, res) => {
   }
   catch (e) {
     console.log("Error TBD");
-    res.status(404).json({ error: true });
+    res.status(404).render('pages/login', { error: true, etext: "Invalid Username/Password"});
   }
 });
 
