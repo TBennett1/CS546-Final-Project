@@ -29,11 +29,12 @@ async function main(){
 		await games.addGame("Super Mario Odyssey", "SuperMarioOdyssey.jpg");
 		const createdGame20=await games.addGame("DOOM Eternal", "DOOMEternal.jpg");
 
-		await users.addUserSeed("Jane","Doe","janedoe@gmail.com","$2a$16$3eiILObl9M5qN8CzPYArau4p5SFyAjNexctMDlamH1jxVgBPmsIdi", "pic.png");
-		await users.addUserSeed("Pascal","Clifford","pclifford2@angelfire.com","$2a$16$Bhop3tLEwnjUztZX2U9iCO6T1ODBEJyRAPrGrLVPcb3oGUkskvX6G", "pascal.jpg");
-		await users.addUserSeed("Kristin","Duffus","kduffus4@craigslist.org","$2a$16$32cJ3Mo4eVDjS5CNpyU4U.fX3L0ymNBEDojal5kTAEttqVPQyyRc6", "kristin.jpeg");
-		await users.addUserSeed("Theo","Longo","tlongo5@fema.gov","$2a$16$shV1LpLoZvDcEqVKmx/sQuxwQwshINLsPMTqEvFp996tOk9uduSVy", "theo.jpg");
-		await users.addUserSeed("Vin","Copson","Vcopson4@wufoo.com","$2a$16$fXqeuI6NMdFhX.9ux6aPEOfA2JkSOb28Ix6or8EhNW7tcMtiykDGi", "vin.png");
+		
+		await users.addUserSeed("Jane","Doe","janedoe@gmail.com","$2a$16$3eiILObl9M5qN8CzPYArau4p5SFyAjNexctMDlamH1jxVgBPmsIdi", "janedoegmailcomProfilePicture.png");
+		await users.addUserSeed("Pascal","Clifford","pclifford2@angelfire.com","$2a$16$Bhop3tLEwnjUztZX2U9iCO6T1ODBEJyRAPrGrLVPcb3oGUkskvX6G", "pclifford2angelfirecomProfilePicture.jpg");
+		await users.addUserSeed("Kristin","Duffus","kduffus4@craigslist.org","$2a$16$32cJ3Mo4eVDjS5CNpyU4U.fX3L0ymNBEDojal5kTAEttqVPQyyRc6", "kduffus4craigslistorgProfilePicture.jpeg");
+		await users.addUserSeed("Theo","Longo","tlongo5@fema.gov","$2a$16$shV1LpLoZvDcEqVKmx/sQuxwQwshINLsPMTqEvFp996tOk9uduSVy", "tlongo5femagovProfilePicture.jpg");
+		await users.addUserSeed("Vin","Copson","Vcopson4@wufoo.com","$2a$16$fXqeuI6NMdFhX.9ux6aPEOfA2JkSOb28Ix6or8EhNW7tcMtiykDGi", "vcopson4wufoocomProfilePicture.png");
 		
 		let review1=await reviews.addReview(`${createdGame5.nameOfGame}`,"tlOngo5@fema.gov","It is just barely worth it the first time, let alone a game you might actually come back to.", 4);
 		let review2=await reviews.addReview(`${createdGame5.nameOfGame}`,"janedoe@gmail.com","Legend Of Zelda Breath of the wild delivers some goofy laughs with family or friends as you fumble your way to a destination without completely destroying your cargo, but like a package that’s been bashed into your front door a few times before finally being pushed through your mail slot, it’s noticeably rough around the edges and some of its contents are broken.", 8);
