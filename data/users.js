@@ -112,13 +112,13 @@ async function addUserSeed(firstName, lastName, email, password, profilePic) {
     if (!profilePic) throw 'You must provide a profile picture.'
     if (typeof (profilePic) != 'string') throw 'Invalid type of profile pic. Should be String.'
     //Checking if user (email id) already exists in the database
-    const allUsers = await userCollection.find({}).toArray();
-    /*
+   const allUsers = await this.getAllUsers();
+    
      let index;
-     for(index = 0; index < allUsers[index].email.length; index++){
+     for(index = 0; index < allUsers[index].length; index++){
      if(email==allUsers[index].email) throw "Email id already in use!";
      }
-    */
+    
     //Not hashing the password as I am already providing hashed password to seed the database
     // password = await Bcrypt.hash(password, 16);
     // console.log(password);
