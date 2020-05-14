@@ -16,19 +16,22 @@ async function addUser(firstName, lastName, email, password, profilePic) {
     if (typeof (email) != 'string') throw 'Email should be of type: string';
     if (!password) throw 'Password cannot be left blank';
     if (password.length > 20) throw 'Length of password should be less than 20 characters';
-     if (password.length < 7) throw 'Length of password should be more than 7 characters';
+    if (password.length < 7) throw 'Length of password should be more than 7 characters';
     //Checking if user (email id) already exists in the database
     console.log("Checkpoint 6");
     console.log(firstName);
     console.log(lastName);
     console.log(email);
     console.log(password);
-    const allUsers = await this.getAllUsers();
+    const allUsers = await userCollection.find({}).toArray();
     console.log("Checkpoint 6.25");
     let index;
-    for (index = 0; index < allUsers.length - 1; index++) {
+    for (index = 0; index < allUsers.length; index++) {
         //console.log(allUsers[index].email);
         console.log("Checkpoint 6.5");
+        console.log(allUsers.length - 1);
+        console.log(email.toLowerCase());
+        console.log(allUsers[index].email);
         if (email.toLowerCase() === allUsers[index].email) throw "Email id already in use!";
         console.log("Checkpoint 6.75");
         console.log(index);
@@ -105,20 +108,20 @@ async function addUserSeed(firstName, lastName, email, password, profilePic) {
     if (typeof (lastName) != 'string') throw 'Last Name should be of type: string';
     if (!email) throw 'You must provide an email';
     if (typeof (email) != 'string') throw 'Email should be of type: string';
-    
-    if(!email.match(mailformat)) throw "Invalid email type"; //Reference: w3resource.com
+
+    if (!email.match(mailformat)) throw "Invalid email type"; //Reference: w3resource.com
     if (!password) throw 'Password cannot be left blank';
     if (typeof (password) != "string") throw 'Invalid type of pwd'
     if (!profilePic) throw 'You must provide a profile picture.'
     if (typeof (profilePic) != 'string') throw 'Invalid type of profile pic. Should be String.'
     //Checking if user (email id) already exists in the database
-   const allUsers = await this.getAllUsers();
-    
+    const allUsers = await userCollection.find({}).toArray();
+    /*
      let index;
-     for(index = 0; index < allUsers[index].length; index++){
+     for(index = 0; index < allUsers[index].email.length; index++){
      if(email==allUsers[index].email) throw "Email id already in use!";
      }
-    
+    */
     //Not hashing the password as I am already providing hashed password to seed the database
     // password = await Bcrypt.hash(password, 16);
     // console.log(password);
@@ -145,20 +148,20 @@ async function addUserSeed(firstName, lastName, email, password, profilePic) {
 
 //Allow the users to edit their profile: Modification recommended by Prof. Hill
 //The following function allows a user to modify his/her profile:
-async function updateUser(id,firstName,lastName,password){
+async function updateUser(id, firstName, lastName, password) {
     if (!id) throw 'Cannot update user without an id';
-    if(typeof(firstName)!='string') throw 'First Name should be of type: string';
-    if (typeof(lastName)!='string') throw 'Last Name should be of type: string';
-    if (typeof(password)!='string') throw 'Password should be of type: String';
-    if(password){
+    if (typeof (firstName) != 'string') throw 'First Name should be of type: string';
+    if (typeof (lastName) != 'string') throw 'Last Name should be of type: string';
+    if (typeof (password) != 'string') throw 'Password should be of type: String';
+    if (password) {
         if (password.length > 20) throw 'Length of password should be less than 20 characters';
         if (password.length < 7) throw 'Length of password should be more than 7 characters';
     }
-   // if (typeof(email)!='string') throw 'Email should be of type: String';
-   
-  // const objId = ObjectId.createFromHexString(id);
+    // if (typeof(email)!='string') throw 'Email should be of type: String';
 
-    if((!firstName && !lastName) && password){
+    // const objId = ObjectId.createFromHexString(id);
+
+    if ((!firstName && !lastName) && password) {
         try {
             let user = await this.getUserById(id);
             firstName = user.firstName;
@@ -167,7 +170,7 @@ async function updateUser(id,firstName,lastName,password){
             console.log(e);
             return;
         }
-    }else if(!firstName){
+    } else if (!firstName) {
         try {
             let user = await this.getUserById(id);
             firstName = user.firstName;
@@ -175,7 +178,7 @@ async function updateUser(id,firstName,lastName,password){
             console.log(e);
             return;
         }
-    }else if(!lastName){
+    } else if (!lastName) {
         try {
             let user = await this.getUserById(id);
             lastName = user.lastName;
@@ -186,21 +189,21 @@ async function updateUser(id,firstName,lastName,password){
     }
 
     let u = await this.getUserById(id);
-    if(password != '') password = await Bcrypt.hash(password, 16);
+    if (password != '') password = await Bcrypt.hash(password, 16);
     else password = u.password;
 
     const userCollection = await users();
     const updateUser = {
-      firstName:firstName,
-      lastName:lastName,
-      password:password
+        firstName: firstName,
+        lastName: lastName,
+        password: password
 
     };
     console.log(updateUser);
-    
+
     //  const { ObjectId } = require('mongodb');
     const objId = ObjectId.createFromHexString(id);
-    const updatedInfo = await userCollection.updateOne({ _id:objId }, { $set: updateUser });
+    const updatedInfo = await userCollection.updateOne({ _id: objId }, { $set: updateUser });
     if (updatedInfo.modifiedCount === 0) {
         throw 'could not update user successfully';
     }
@@ -221,7 +224,7 @@ async function addReviewsToUser(email, reviewId) {
 async function addCommentsToUser(email, commentId) {
     if (!email) throw 'You must provide an email id to comment';
     if (!commentId) throw 'You must provide a comment id';
-    email=email.toLowerCase();
+    email = email.toLowerCase();
     const userCollection = await users();
     const objId = ObjectId.createFromHexString(commentId);
     const userComment = await userCollection.findOne({ email: email });
