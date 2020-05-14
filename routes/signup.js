@@ -47,17 +47,25 @@ router.post("/", upload.single("file" /* name attribute of <file> element in you
             try {
                 const tempPath = req.file.path;
                 console.log("Checkpoint 2");
-                const newFileName = data.username.replace( /[^a-zA-Z0-9]/ , "").replace("." , "") + "ProfilePicture.png"
+                const newFileName = data.username.replace(/[^a-zA-Z0-9]/, "").replace(".", "") + "ProfilePicture.png"
                 const targetPath = path.join(__dirname, "../images/" + newFileName);
                 console.log("Checkpoint 3");
                 console.log(path.extname(req.file.originalname).toLowerCase());
                 if (path.extname(req.file.originalname).toLowerCase() === ".png" || path.extname(req.file.originalname).toLowerCase() === ".jpg") {
                     console.log("Checkpoint 4");
-                    fs.rename(tempPath, targetPath, err => {
+                    fs.rename(tempPath, targetPath, async err => {
                         console.log("Checkpoint 5");
                         if (err) {
                             console.log(err);
                             return handleError(err, res);
+                        }
+                        try {
+                            const newUser = await userData.addUser(data.firstname, data.lastname, data.username, data.password1, newFileName);
+                        }
+                        catch{
+                            res.status(401).render('pages/signup', { error: true, etext: "Account already exists on this email" });
+                            console.log("You messed up bro");
+                            return;
                         }
                         console.log("Checkpoint 6");
                         return res.redirect('/signupsuccess');
@@ -76,7 +84,6 @@ router.post("/", upload.single("file" /* name attribute of <file> element in you
                     });
                 }
                 console.log("Checkpoint 9");
-                const newUser = await userData.addUser(data.firstname, data.lastname, data.username, data.password1, newFileName);
                 console.log("Checkpoint 10");
 
             }
