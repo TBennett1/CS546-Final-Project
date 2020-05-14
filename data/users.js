@@ -15,8 +15,8 @@ async function addUser(firstName, lastName, email, password, profilePic) {
     if (!email) throw 'You must provide an email';
     if (typeof (email) != 'string') throw 'Email should be of type: string';
     if (!password) throw 'Password cannot be left blank';
-    if (password.length > 20) throw 'Length of password should be less than 20 characters';
-    if (password.length < 7) throw 'Length of password should be more than 7 characters';
+    if (password.length > 15) throw 'Length of password should be less than 15 characters';
+    if (password.length < 8) throw 'Length of password should be more than 8 characters';
     //Checking if user (email id) already exists in the database
     console.log("Checkpoint 6");
     console.log(firstName);
@@ -154,8 +154,8 @@ async function updateUser(id, firstName, lastName, password) {
     if (typeof (lastName) != 'string') throw 'Last Name should be of type: string';
     if (typeof (password) != 'string') throw 'Password should be of type: String';
     if (password) {
-        if (password.length > 20) throw 'Length of password should be less than 20 characters';
-        if (password.length < 7) throw 'Length of password should be more than 7 characters';
+        if (password.length > 15) throw 'Length of password should be less than 15 characters';
+        if (password.length < 8) throw 'Length of password should be more than 8 characters';
     }
     // if (typeof(email)!='string') throw 'Email should be of type: String';
 
