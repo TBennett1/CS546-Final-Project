@@ -23,7 +23,7 @@ async function addUser(firstName, lastName, email, password, profilePic) {
     console.log(lastName);
     console.log(email);
     console.log(password);
-    const allUsers = await userCollection.find({}).toArray();
+    const allUsers = await this.getAllUsers();
     console.log("Checkpoint 6.25");
     let index;
     for (index = 0; index < allUsers.length - 1; index++) {
