@@ -11,7 +11,7 @@
   "author": "Tehreem, Matthew, Tarquin",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "bcryptjs": "^2.4.3",
     "bluebird": "^3.7.2",
     "express": "^4.17.1",
